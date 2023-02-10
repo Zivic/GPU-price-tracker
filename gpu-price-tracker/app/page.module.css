@@ -7,6 +7,12 @@
   min-height: 100vh;
 }
 
+canvas #bg{
+  display:fixed;
+  top:0;
+  left:0;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;
