@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import React, { useEffect } from "react";
+import { Vector3 } from "three";
 
 const ThreeCanvas = () => {
   useEffect(() => {
@@ -16,9 +17,13 @@ const ThreeCanvas = () => {
     );
     const renderer = new THREE.WebGLRenderer({
       canvas: document.querySelector("#bg")!,
+      antialias: true,
+      alpha: true,
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.autoClear = false;
+    renderer.setClearColor(0x000000, 0.0);
     camera.position.setZ(30);
 
     renderer.render(scene, camera);
@@ -26,13 +31,14 @@ const ThreeCanvas = () => {
     const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
     const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
     const torus = new THREE.Mesh(geometry, material);
+    torus.position.y = -20;
 
     scene.add(torus);
 
     const pointLight = new THREE.PointLight(0xffffff);
     pointLight.position.set(25, 5, 5);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff);
+    const ambientLight = new THREE.AmbientLight(0x999999);
     scene.add(pointLight, ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -54,9 +60,9 @@ const ThreeCanvas = () => {
     function animate() {
       requestAnimationFrame(animate);
 
-      torus.rotation.x += 0.01;
+      torus.rotation.x += 0.005;
       torus.rotation.y += 0.005;
-      torus.rotation.z += 0.01;
+      torus.rotation.z += 0.002;
 
       controls.update();
 
@@ -65,7 +71,7 @@ const ThreeCanvas = () => {
     animate();
   }, []);
 
-  return <canvas id="bg"></canvas>;
+  return <canvas id="bg" className="bg-gradient-to-b from-cyan-400  to-purple-700"></canvas>;
 };
 
 export default ThreeCanvas;
