@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import React, { useEffect } from "react";
 import { Vector3 } from "three";
 
@@ -24,6 +25,7 @@ const ThreeCanvas = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.autoClear = false;
     renderer.setClearColor(0x000000, 0.0);
+    // renderer.physicallyCorrectLights = true;
     camera.position.setZ(30);
 
     renderer.render(scene, camera);
@@ -35,25 +37,46 @@ const ThreeCanvas = () => {
 
     scene.add(torus);
 
-    const pointLight = new THREE.PointLight(0xffffff);
-    pointLight.position.set(25, 5, 5);
+    const pointLight = new THREE.PointLight(0xffffff, 3);
+    pointLight.position.set(25, 15, 5);
+    const pointLight2 = new THREE.PointLight(0xffffff, 3);
+    pointLight.position.set(0, 10, 10);
 
-    const ambientLight = new THREE.AmbientLight(0x999999);
-    scene.add(pointLight, ambientLight);
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(pointLight,pointLight2, ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
-    const loader = new FBXLoader();
-    loader.load(
-      "/models/GPU/source/model.fbx",
-      (object) => {
-        scene.add(object),
-          (xhr: ProgressEvent<EventTarget>) => {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-          },
-          () => {
-            console.error("error");
-          };
+    // const loader = new FBXLoader();
+    // loader.load("/models/GPU/source/model.fbx", (object) => {
+    //   scene.add(object),
+    //     (xhr: ProgressEvent<EventTarget>) => {
+    //       console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //     },
+    //     () => {
+    //       console.error("error");
+    //     };
+    // });
+    var model: any
+
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load(
+      "/models/RTX3090/RTX3090.glb",
+      (gltf) => {
+        model = gltf;
+        scene.add(gltf.scene);
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Group
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+      }, // called while loading is progressing
+      function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      // called when loading has errors
+      function (error) {
+        console.log("An error happened");
       }
     );
 
@@ -64,6 +87,16 @@ const ThreeCanvas = () => {
       torus.rotation.y += 0.005;
       torus.rotation.z += 0.002;
 
+      // if(model && model.rotation){
+      //   model.rotation.x += 0.005;
+      //   model.rotation.y += 0.005;
+      //   model.rotation.z += 0.002;
+      // }
+      if(scene.children[4]){
+      scene.children[4].rotation.x += 0.005;
+      scene.children[4].rotation.y += 0.005;
+      scene.children[4].rotation.z += 0.0005;
+      }
       controls.update();
 
       renderer.render(scene, camera);
@@ -71,7 +104,12 @@ const ThreeCanvas = () => {
     animate();
   }, []);
 
-  return <canvas id="bg" className="bg-gradient-to-b from-cyan-400  to-purple-700"></canvas>;
+  return (
+    <canvas
+      id="bg"
+      className="bg-gradient-to-b from-cyan-400  to-purple-700"
+    ></canvas>
+  );
 };
 
 export default ThreeCanvas;
