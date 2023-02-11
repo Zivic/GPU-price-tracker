@@ -11,6 +11,8 @@ export default function Home() {
       <div className={styles.description}>
         <Link href="/about">About</Link>
         <Link href="/main">Main</Link>
+        <Link href="/browse">Browse</Link>
+
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.tsx</code>

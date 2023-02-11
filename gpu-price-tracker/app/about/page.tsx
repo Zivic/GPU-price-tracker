@@ -1,4 +1,5 @@
 import ThreeCanvas from "@/components/ThreeCanvas";
+
 export default function About() {
   return (
     <div>
