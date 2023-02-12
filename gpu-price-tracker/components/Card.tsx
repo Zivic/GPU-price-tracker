@@ -1,17 +1,20 @@
 import React from "react";
 
-const Card = () => {
+const Card = ({data}:any) => {
+  console.log("card data:", data)
+  console.log("price:", data.price);
   return (
-    <div className="w-72 h-96 rounded-lg bg-slate-400 m-4 shadow-lg">
+    <div className="w-72 h-auto rounded-lg bg-slate-400 m-4 shadow-lg">
       <img
         className="rounded-lg"
-        src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
+        // src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
+        src={data.image}
       ></img>
       <div className="flex flex-col text-center">
-        <p className="text-gray-200 text-lg">RTX 3090</p>
-        <p className="text-black text-xl"> ROG STRIX</p>
+      <p className="text-black text-sm">{data.brand}</p>
+        <p className="text-gray-200 text-sm">{data.title}</p>
         <div className="relative">
-          <span className="text-black text-xl">3000$</span>
+          <span className="text-black text-md">{data.price}</span>
           <div className="flex absolute right-12 top-0.5">
           <span >3%</span>
           <svg

@@ -9,8 +9,6 @@ const testArray = new Array(20).fill(true, 0, 20);
 const gigatronAPI: string =
   "https://search.gigatron.rs/v1/catalog/get/racunari-i-komponente/komponente/graficke-karte?Gaming=!attr_valDa";
 
-
-
 const CardList = () => {
   const [cardData, setCardData] = useState<Object[]>([]);
 
@@ -24,18 +22,20 @@ const CardList = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
-        setCardData(data.hits.hits);
+        const filteredData = data.hits.hits.map(
+          (hit: any) => hit._source.search_result_data
+        );
+        setCardData(filteredData);
       })
       .catch((err) => console.error(err));
   };
-  console.log("cardData", cardData)
+  console.log("cardData", cardData);
 
   return (
     //TODO: Responsive style for grid overlap on small viewports
     <div className="grid grid-cols-3 gap-4">
-      
       {cardData?.map((item, index) => {
-        return <Card key={index} />;
+        return <Card data={item} key={index} />;
       })}
     </div>
   );
