@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./Card";
+import ECommerceCard from "./ECommerceCard";
 
 const testArray = new Array(20).fill(true,0,20);
 const CardList = () => {
