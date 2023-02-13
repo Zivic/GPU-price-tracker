@@ -1,4 +1,6 @@
 import React from "react";
+import PriceSlider from "./PriceSlider";
+
 const testData = [
   "MSI",
   "Gigabyte",
@@ -41,8 +43,8 @@ const Sidebar = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <ul className="space-y-2 ml-12">
-            
+          <ul className="space-y-2 ml-8">
+
             {testData.map((manufacturer, index) => {
               return <li key={index}>
                 <input type="checkbox">
@@ -195,6 +197,9 @@ const Sidebar = () => {
             </li> */}
           </ul>
           <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+            <li>
+              <PriceSlider/>
+            </li>
             <li>
               <a
                 href="#"
