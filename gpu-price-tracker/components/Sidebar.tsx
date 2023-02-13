@@ -1,5 +1,14 @@
 import React from "react";
-
+const testData = [
+  "MSI",
+  "Gigabyte",
+  "Asus",
+  "Sapphire",
+  "Powercolor",
+  "XFX",
+  "AS Rock",
+  "Inno3D",
+];
 const Sidebar = () => {
   return (
     <>
@@ -32,8 +41,16 @@ const Sidebar = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <ul className="space-y-2">
-            <li>
+          <ul className="space-y-2 ml-12">
+            
+            {testData.map((manufacturer, index) => {
+              return <li key={index}>
+                <input type="checkbox">
+                  </input>
+                  <label className="ml-4">{manufacturer}</label>
+                </li>;
+            })}
+            {/* <li>
               <a
                 href="#"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -175,7 +192,7 @@ const Sidebar = () => {
                 </svg>
                 <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
               </a>
-            </li>
+            </li> */}
           </ul>
           <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
             <li>
@@ -264,7 +281,6 @@ const Sidebar = () => {
           </ul>
         </div>
       </aside>
-
     </>
   );
 };
