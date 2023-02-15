@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 
 const Card = ({ data }: any) => {
-  console.log("card data:", data);
-  console.log("price:", data.price);
+  // console.log("card data:", data);
+  // console.log("price:", data.price);
   return (
     <div className="w-64 h-auto rounded-lg  m-4 shadow-lg bg-gradient-to-r from-gray-600 to-gray-700">
       <img

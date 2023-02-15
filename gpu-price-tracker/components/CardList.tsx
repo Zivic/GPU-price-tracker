@@ -17,11 +17,11 @@ const CardList = () => {
   }, []);
 
   const getGigatronData = function () {
-    console.log("calling function gigatron");
+    // console.log("calling function gigatron");
     fetch(gigatronAPI)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
+        // console.log("data", data);
         const filteredData = data.hits.hits.map(
           (hit: any) => hit._source.search_result_data
         );
@@ -29,7 +29,7 @@ const CardList = () => {
       })
       .catch((err) => console.error(err));
   };
-  console.log("cardData", cardData);
+  // console.log("cardData", cardData);
 
   return (
     //TODO: Responsive style for grid overlap on small viewports
