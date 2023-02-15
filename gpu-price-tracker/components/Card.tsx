@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Card = ({ data }: any) => {
   console.log("card data:", data);
@@ -16,7 +17,7 @@ const Card = ({ data }: any) => {
           <p className="text-black text-sm ">{data.title}</p>
         </div>
         <div className="align-bottom">
-          <div className="flex  bottom-0">
+          <div className="flex  bottom-0 justify-between">
             <span className="text-black text-2xl self-end">{data.price}</span>
             <div className="flex  right-12 top-0.5 ">
               <span>3%</span>
@@ -34,6 +35,12 @@ const Card = ({ data }: any) => {
                   d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25"
                 />
               </svg>
+              <Link
+                href="/product/1"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded right-0"
+              >
+                Buy
+              </Link>
             </div>
           </div>
         </div>
