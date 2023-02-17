@@ -21,15 +21,18 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const nameContext = ".product_single__compact_url";
     const priceContext = ".product_single__compact_price";
     const priceContext2 = ".product_single__compact_price_discount"; //It is nested
+    const infoContext = ".product_single__compact_attributes";
+
 
 
     let products = new Array<Object>();
     $(productContext).each((i: any, el: any)=> {
       const name = $(el).children(nameContext).text().trim();
       const price = $(el).children(priceContext).children(priceContext2).text().trim();
+      const information = $(el).children(infoContext).text().trim().split("  ");
         // console.log("NAME:", name);
         // console.log("PRICE", price);
-        products.push({name:name, price:price})
+        products.push({name:name, price:price, information: information})
     })
 
     res.status(200).json({ name: "success", results: products});
