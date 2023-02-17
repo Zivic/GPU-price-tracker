@@ -4,7 +4,7 @@ const cheerio = require("cheerio");
 
 type Data = {
   name: string;
-  results?: Array<string>;
+  results?: Array<Object>;
 };
 
 type JSONResponse = {
@@ -18,34 +18,21 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const htmlString = await response.text();
     const $ = cheerio.load(htmlString);
     const productContext = `.product_single__compact_information`;
-    const nameContext = productContext + ":first"
-    const childContext = productContext + ":first"
+    const nameContext = ".product_single__compact_url";
+    const priceContext = ".product_single__compact_price";
+    const priceContext2 = ".product_single__compact_price_discount"; //It is nested
 
-    // const followerCountString = $(searchContext)
-    //   .text()
-    // //   .trim()
-    // //   .match(/[0-9]/gi)
-    // //   .join('')
-    // console.log(followerCountString)
 
-    const elements = $(productContext);
-    let someObjArr = new Array();
-      elements.contents().each((i:any, el:any ) => {
-        console.log("i: ", i)
-        if ($(el).hasClass('product_single__compact_url') ) {
-          someObjArr.push({name: $(el).text().trim()});
-      }
-      })
-    // const name = $(searchContext)
-    // console.log("array?:", elements.contents());
-    console.log("????:", someObjArr);
+    let products = new Array<Object>();
+    $(productContext).each((i: any, el: any)=> {
+      const name = $(el).children(nameContext).text().trim();
+      const price = $(el).children(priceContext).children(priceContext2).text().trim();
+        // console.log("NAME:", name);
+        // console.log("PRICE", price);
+        products.push({name:name, price:price})
+    })
 
-    
-    elements.each((i: any, el: any) => $(el).text().trim());
-    const parsedElements: Array<string> =  elements.text().trim().split("\n");
-    // console.log(parsedElements)
-
-    res.status(200).json({ name: "success" });
+    res.status(200).json({ name: "success", results: products});
   } catch (err: any) {
     console.error(err);
     res.status(400).json({ name: "ERROR" });
