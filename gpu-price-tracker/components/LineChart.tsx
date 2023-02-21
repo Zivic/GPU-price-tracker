@@ -17,6 +17,7 @@ const data: ChartData<'line'> = {
       label: "First dataset",
       data: [33, 53, 85, 41, 44, 65],
       fill: true,
+      stepped: true,
       backgroundColor: "rgba(75,192,192,0.2)",
       borderColor: "rgba(75,192,192,1)",
     },
@@ -24,6 +25,7 @@ const data: ChartData<'line'> = {
       label: "Second dataset",
       data: [33, 25, 35, 51, 54, 76],
       fill: false,
+      stepped: true,
       borderColor: "#742774",
     },
   ],
@@ -39,21 +41,26 @@ const legend = {
   };
   
   const options: ChartOptions<'line'> = {
-
+    // responsive:true,
+    // maintainAspectRatio:false,
+    interaction:{
+      intersect: false,
+      axis: 'x'
+    },
     scales: {
         myScale: {
             axis: 'r'
           }
     }
   };
-// const options: ChartOptions<'line'> = {
-//     scales: {
-//       myScale: {
-//         type: 'logarithmic',
-//         position: 'right', // `axis` is determined by the position as `'y'`
-//       }
-//     }
-//   }
+const options2: ChartOptions<'line'> = {
+    scales: {
+      myScale: {
+        type: 'logarithmic',
+        position: 'right', // `axis` is determined by the position as `'y'`
+      }
+    },
+  }
 
 const LineChart = () => {
   return <div className = "w-full h-full">
