@@ -5,7 +5,7 @@ type ProductProps = {
   product: {
     id: string;
     name: string;
-    price: number;
+    price: string;
     image: string;
     information: {
       manufacturer: string;
@@ -41,24 +41,65 @@ const Product: FC<ProductProps> = ({ product }) => {
                           {product.price}
                         </h3>
                         <img src={product.image}></img>
+                      </div>
+                      <div className="">
                         <h3 className="text-base font-normal text-gray-500">
                           {"Manufacturer: " + product.information.manufacturer}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory interface: " + product.information.memory_interface}
+                          {"Memory interface: " +
+                            product.information.memory_interface}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
                           {"Memory: " + product.information.memory}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Processor frequency: " + product.information.processor_frequency}
+                          {"Processor frequency: " +
+                            product.information.processor_frequency}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory frequency: " + product.information.memory_frequency}
+                          {"Memory frequency: " +
+                            product.information.memory_frequency}
                         </h3>
-                        <h3 className="text-base font-normal text-gray-500">
+                        <h3 className=" mb-4 text-base font-normal text-gray-500">
                           {"Guarantee: " + product.information.guarantee}
                         </h3>
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                          {product.price}
+                        </span>
+
+                        <div className="flex">  
+                        <img
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                        <p className="text-gray-500 mr-4">Gigatron</p>
+                        </div>
+                        {/* COMPANY AVATARS */}
+                        <div className="flex -space-x-2 overflow-hidden ">
+                          <p className="text-gray-500 mr-4">+ 4 other stores</p>
+                          <img
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                          <img
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                          <img
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                            alt=""
+                          />
+                          <img
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                        </div>
                       </div>
                       <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
                         12.5%

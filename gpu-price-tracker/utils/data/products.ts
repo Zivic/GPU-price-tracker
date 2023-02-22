@@ -2,13 +2,13 @@ const products = [
     {
         id:'1',
         name: "RTX 3090 TEST NAME AAAA",
-        price: 23555,
+        price: "12.345 RSD",
         image: "https://img.gigatron.rs/img/products/medium/image621f64f4b9df6.png"
     },
     {
         id:'2',
         name: "RTX 3080 TEST NAME BBBB",
-        price: 12345,
+        price: "39.999 RSD",
         image: "https://img.gigatron.rs/img/products/medium/image621f64f4b9df6.png",
         information: {
             manufacturer: "Gigabyte",

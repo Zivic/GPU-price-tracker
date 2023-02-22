@@ -5,7 +5,7 @@ export default function Page({
   params,
   searchParams,
 }: {
-  params: { slug: string, posts: { id: string, name: string, price: number } };
+  params: { slug: string, posts: { id: string, name: string, price: string } };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   return (
