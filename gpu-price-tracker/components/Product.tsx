@@ -6,21 +6,21 @@ type ProductProps = {
     id: string;
     name: string;
     price: number;
+    image: string;
+    information: {
+      manufacturer: string;
+      memory_interface: string;
+      memory: string;
+      processor_frequency: string;
+      memory_frequency: string;
+      guarantee: string;
+    };
   };
 };
 
 const Product: FC<ProductProps> = ({ product }) => {
-  console.log("posts", product);
-  console.log("name", product.name);
-  console.log("price", product.price);
-  console.log("ide", product.id);
-  const demoUrl = "https://codesandbox.io/s/simple-line-chart-kec3v";
-
   return (
     <div>
-      <h1>{product.name}</h1>
-      <h1>{product.price}</h1>
-      <h1>{product.id}</h1>
       <div>
         <div className="flex overflow-hidden bg-white pt-16">
           <div
@@ -30,9 +30,8 @@ const Product: FC<ProductProps> = ({ product }) => {
             <main>
               <div className="pt-6 px-4">
                 <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-
-                {/* PRODUCT INFORMATION */}
-                <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
+                  {/* PRODUCT INFORMATION */}
+                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
@@ -40,6 +39,25 @@ const Product: FC<ProductProps> = ({ product }) => {
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
                           {product.price}
+                        </h3>
+                        <img src={product.image}></img>
+                        <h3 className="text-base font-normal text-gray-500">
+                          {"Manufacturer: " + product.information.manufacturer}
+                        </h3>
+                        <h3 className="text-base font-normal text-gray-500">
+                          {"Memory interface: " + product.information.memory_interface}
+                        </h3>
+                        <h3 className="text-base font-normal text-gray-500">
+                          {"Memory: " + product.information.memory}
+                        </h3>
+                        <h3 className="text-base font-normal text-gray-500">
+                          {"Processor frequency: " + product.information.processor_frequency}
+                        </h3>
+                        <h3 className="text-base font-normal text-gray-500">
+                          {"Memory frequency: " + product.information.memory_frequency}
+                        </h3>
+                        <h3 className="text-base font-normal text-gray-500">
+                          {"Guarantee: " + product.information.guarantee}
                         </h3>
                       </div>
                       <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
@@ -58,12 +76,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                         </svg>
                       </div>
                     </div>
-                    <div id="main-chart2" className="h-96">
-
-                    </div>
                   </div>
-
-
 
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
