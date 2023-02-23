@@ -31,10 +31,10 @@ const Product: FC<ProductProps> = ({ product }) => {
   return (
     <div>
       <div>
-        <div className="flex overflow-hidden bg-white pt-16">
+        <div className="flex overflow-hidden bg-slate-300 pt-16">
           <div
             id="main-content"
-            className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64 md:ml-4"
+            className="h-full w-full  relative overflow-y-auto lg:ml-64 md:ml-4"
           >
             <main>
               <div className="pt-6 px-4">
@@ -277,7 +277,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                   {/* M2 - SIMILAR ITEMS / SAME MODEL */}
-                  <div className=" bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-8">
+                  <div className=" bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  col-span-8">
                     <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
                       Similar products
                     </span>
