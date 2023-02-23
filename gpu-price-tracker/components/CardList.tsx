@@ -29,7 +29,7 @@ const CardList = () => {
       })
       .catch((err) => console.error(err));
   };
-  // console.log("cardData", cardData);
+  console.log("cardData", cardData);
 
   return (
     //TODO: Responsive style for grid overlap on small viewports

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import LineChart from "./LineChart";
+import Card from "./Card";
 
 type ProductProps = {
   product: {
@@ -18,6 +19,14 @@ type ProductProps = {
   };
 };
 
+const mockCardData = {
+  image: "https://img.gigatron.rs/img/products/medium/image615d8cb4c4e5d.png",
+  brand: "Palit",
+  title:
+    "PALIT GeForce RTX 3060 Ti Dual LHR 8GB GDDR6 256-bit NE6306T019P2-190AD",
+  price: "79999.00",
+};
+
 const Product: FC<ProductProps> = ({ product }) => {
   return (
     <div>
@@ -30,7 +39,7 @@ const Product: FC<ProductProps> = ({ product }) => {
             <main>
               <div className="pt-6 px-4">
                 <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-                  {/* PRODUCT INFORMATION */}
+                  {/* M1 - PRODUCT INFORMATION */}
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
@@ -68,13 +77,16 @@ const Product: FC<ProductProps> = ({ product }) => {
                           {product.price}
                         </span>
 
-                        <div className="flex">  
-                        <img
+                        <div className="flex">
+                          <p className="text-gray-500 mr-2">
+                            available at Gigatron
+                          </p>
+
+                          <img
                             className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
                           />
-                        <p className="text-gray-500 mr-4">Gigatron</p>
                         </div>
                         {/* COMPANY AVATARS */}
                         <div className="flex -space-x-2 overflow-hidden ">
@@ -118,7 +130,165 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </div>
                     </div>
                   </div>
-
+                  {/* M4 COPY - LIST OF ALL STORES */}
+                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          All stores
+                        </h3>
+                        <span className="text-base font-normal text-gray-500">
+                          This is a list of stores with this item available
+                        </span>
+                      </div>
+                      <div className="flex-shrink-0">
+                        <a
+                          href="#"
+                          className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2"
+                        >
+                          View all
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mt-8">
+                      <div className="overflow-x-auto rounded-lg">
+                        <div className="align-middle inline-block min-w-full">
+                          <div className="shadow overflow-hidden sm:rounded-lg">
+                            <table className="min-w-full divide-y divide-gray-200">
+                              <thead className="bg-gray-50">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                  >
+                                    Store name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                  >
+                                    Last updated
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                  >
+                                    Price
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody className="bg-white">
+                                <tr>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                    <span className="font-semibold">
+                                      Gigatron
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 23 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $2300
+                                  </td>
+                                </tr>
+                                <tr className="bg-gray-50">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                    <span className="font-semibold">
+                                      Monitor System
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 23 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $670
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                    <span className="font-semibold">
+                                      Store 3
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 18 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $234
+                                  </td>
+                                </tr>
+                                <tr className="bg-gray-50">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                    <span className="font-semibold">
+                                      Store 4
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 15 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $5000
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                    <span className="font-semibold">
+                                      Store 5
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 15 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $2300
+                                  </td>
+                                </tr>
+                                <tr className="bg-gray-50">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                    <span className="font-semibold">
+                                      Store 6
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 11 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $560
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                    <span className="font-semibold">
+                                      Store 7
+                                    </span>
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                    Apr 6 ,2021
+                                  </td>
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                    $1437
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* M2 - SIMILAR ITEMS / SAME MODEL */}
+                  <div className=" bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-8">
+                    <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                      Similar products
+                    </span>
+                    <div className="flex flex-row">
+                      <Card data={mockCardData} />
+                      <Card data={mockCardData} />
+                      <Card data={mockCardData} />
+                      <Card data={mockCardData} />
+                    </div>
+                  </div>
+                  {/* M3 - CHART */}
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
@@ -149,14 +319,15 @@ const Product: FC<ProductProps> = ({ product }) => {
                       <LineChart />
                     </div>
                   </div>
+                  {/* M4 - LIST OF ALL STORES */}
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          Latest Transactions
+                          All stores
                         </h3>
                         <span className="text-base font-normal text-gray-500">
-                          This is a list of latest transactions
+                          This is a list of stores with this item available
                         </span>
                       </div>
                       <div className="flex-shrink-0">
@@ -179,28 +350,27 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     scope="col"
                                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                   >
-                                    Transaction
+                                    Store name
                                   </th>
                                   <th
                                     scope="col"
                                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                   >
-                                    Date & Time
+                                    Last updated
                                   </th>
                                   <th
                                     scope="col"
                                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                   >
-                                    Amount
+                                    Price
                                   </th>
                                 </tr>
                               </thead>
                               <tbody className="bg-white">
                                 <tr>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment from{" "}
                                     <span className="font-semibold">
-                                      Bonnie Green
+                                      Gigatron
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -212,23 +382,21 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </tr>
                                 <tr className="bg-gray-50">
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                    Payment refund to{" "}
                                     <span className="font-semibold">
-                                      #00910
+                                      Monitor System
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 23 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    -$670
+                                    $670
                                   </td>
                                 </tr>
                                 <tr>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment failed from{" "}
                                     <span className="font-semibold">
-                                      #087651
+                                      Store 3
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -240,9 +408,8 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </tr>
                                 <tr className="bg-gray-50">
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                    Payment from{" "}
                                     <span className="font-semibold">
-                                      Lana Byrd
+                                      Store 4
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -254,9 +421,8 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </tr>
                                 <tr>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment from{" "}
                                     <span className="font-semibold">
-                                      Jese Leos
+                                      Store 5
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -268,9 +434,8 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </tr>
                                 <tr className="bg-gray-50">
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                    Payment from{" "}
                                     <span className="font-semibold">
-                                      THEMESBERG LLC
+                                      Store 6
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -282,9 +447,8 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </tr>
                                 <tr>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment from{" "}
                                     <span className="font-semibold">
-                                      Lana Lysle
+                                      Store 7
                                     </span>
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
@@ -302,6 +466,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                 </div>
+                {/* M5 - TRIPLE CARD */}
                 <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
@@ -386,6 +551,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
+                  {/* M6 - LATEST CUSTOMERS */}
                   <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold leading-none text-gray-900">
@@ -543,6 +709,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </ul>
                     </div>
                   </div>
+                  {/* M7 - ACQUISITION OVERVIEW */}
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
                       Acquisition Overview
@@ -706,6 +873,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                 </div>
               </div>
             </main>
+
             <footer className="bg-white md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4">
               <ul className="flex items-center flex-wrap mb-6 md:mb-0">
                 <li>
@@ -819,9 +987,9 @@ const Product: FC<ProductProps> = ({ product }) => {
               </div>
             </footer>
             <p className="text-center text-sm text-gray-500 my-10">
-              &copy; 2019-2021{" "}
+              &copy; 2023-2023{" "}
               <a href="#" className="hover:underline" target="_blank">
-                Themesberg
+                Djole
               </a>
               . All rights reserved.
             </p>
