@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import {UploadImage} from "../utils/data/cloudinary";
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -8,21 +10,24 @@ async function main() {
       return res.json();
     })
     .then((data) => {
+      UploadImage(data.results[0].full_image_link, data.results[0].name)
       data.results.forEach((product: any) => {
         // console.log(product);
-        
+                // console.log(product);
+
         //TODO: NEED TO FETCH IMAGE FIRST
         const priceAndCurrency = (product.price as String).split(" ");
         const price = priceAndCurrency[0];
         const currency = priceAndCurrency[1];
 
-        const manufacturer = (product.information[0] as String).split(": ")[1]
-        const memoryInterface = (product.information[1] as String).split(": ")[1]
-        const memory = (product.information[2] as String).split(": ")[1];
-        const processorFrequency = (product.information[3] as String).split(": ")[1]
-        const memoryFrequency = (product.information[4] as String).split(": ")[1]
-        const guarantee = (product.information[5] as String).split(": ")[1]
+        const manufacturer = (product.information[0] as String)?.split(": ")[1]
+        const memoryInterface = (product.information[1] as String)?.split(": ")[1]
+        const memory = (product.information[2] as String)?.split(": ")[1];
+        const processorFrequency = (product.information[3] as String)?.split(": ")[1]
+        const memoryFrequency = (product.information[4] as String)?.split(": ")[1]
+        const guarantee = (product.information[5] as String)?.split(": ")[1]
         // TODO: insert products into database:
+        // console.log(image)
 
 
       });

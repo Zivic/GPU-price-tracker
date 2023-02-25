@@ -1,17 +1,18 @@
+import * as dotenv from 'dotenv';
 const cloudinary = require('cloudinary').v2;
 
+const UploadImage = (image: string, publicId: string) => {
+dotenv.config();
 
 // Configuration 
 cloudinary.config({
-  cloud_name: "dorkfskyc",
-  api_key: "184256163935568",
-  api_secret: "lTqinL81v7roe6ySV-Lk_d1F87c"
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 });
 
-
 // Upload
-
-const res = cloudinary.uploader.upload('https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg', {public_id: "olympic_flag"})
+const res = cloudinary.uploader.upload(image, {public_id: publicId})
 
 res.then((data: any) => {
   console.log(data);
@@ -20,12 +21,14 @@ res.then((data: any) => {
   console.log(err);
 });
 
-
 // Generate 
-const url = cloudinary.url("olympic_flag", {
-  width: 100,
-  height: 150,
+const url = cloudinary.url(publicId, {
+//   width: 100,
+//   height: 150,
   Crop: 'fill'
 });
 
-export {};
+return url;
+}
+
+export {UploadImage};

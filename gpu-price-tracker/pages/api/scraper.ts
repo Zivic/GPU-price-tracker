@@ -15,27 +15,27 @@ type JSONResponse = {
   name: string;
 };
 
-var downloadImageToUrl = (
-  url: string,
-  filename: string,
-  callback: Function
-) => {
-  var client = http;
-  if (url.toString().indexOf("https") === 0) {
-    client = https;
-  }
-  client
-    .request(url, function (response: any) {
-      var data = new Stream();
-      response.on("data", function (chunk: any) {
-        data.push(chunk);
-      });
-      response.on("end", function () {
-        fs.writeFileSync(filename, data.read());
-      });
-    })
-    .end();
-};
+// var downloadImageToUrl = (
+//   url: string,
+//   filename: string,
+//   callback: Function
+// ) => {
+//   var client = http;
+//   if (url.toString().indexOf("https") === 0) {
+//     client = https;
+//   }
+//   client
+//     .request(url, function (response: any) {
+//       var data = new Stream();
+//       response.on("data", function (chunk: any) {
+//         data.push(chunk);
+//       });
+//       response.on("end", function () {
+//         fs.writeFileSync(filename, data.read());
+//       });
+//     })
+//     .end();
+// };
 
 const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   try {
@@ -70,10 +70,10 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       console.log(fullImageLink);
 
       console.log(img_name_clean);
-      const filePath =
-        "/home/djole/Documents/Repo/GPU-price-tracker/gpu-price-tracker/images/" +
-        img_name_clean;
-      downloadImageToUrl(fullImageLink, filePath, () => {});
+      // const filePath =
+      //   "/home/djole/Documents/Repo/GPU-price-tracker/gpu-price-tracker/images/" +
+      //   img_name_clean;
+      // downloadImageToUrl(fullImageLink, filePath, () => {});
       // try{
       //   fs.createWriteStream('/home/djole/Documents/Repo/GPU-price-tracker/gpu-price-tracker/images/'+img_name_clean)
       // }
@@ -84,7 +84,7 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       // console.log("PRICE", price);
       // console.log("image:", image);
 
-      products.push({ name: name, price: price, information: information });
+      products.push({ name: name, price: price, full_image_link: fullImageLink, information: information });
     });
 
     res.status(200).json({ name: "success", results: products });
