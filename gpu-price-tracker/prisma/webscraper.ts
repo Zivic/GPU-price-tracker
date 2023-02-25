@@ -1,5 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import {UploadImage} from "../utils/data/cloudinary";
+import products from "@/utils/data/products";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime";
+import { UploadImage } from "../utils/data/cloudinary";
 
 const prisma = new PrismaClient();
 
@@ -10,25 +12,89 @@ async function main() {
       return res.json();
     })
     .then((data) => {
-      UploadImage(data.results[0].full_image_link, data.results[0].name)
-      data.results.forEach((product: any) => {
+      data.results.forEach(async (_product: any) => {
         // console.log(product);
-                // console.log(product);
+        // console.log(product);
+          const uploadedImageURL: string = UploadImage(
+            _product.full_image_link,
+            _product.name
+          );
 
-        //TODO: NEED TO FETCH IMAGE FIRST
-        const priceAndCurrency = (product.price as String).split(" ");
-        const price = priceAndCurrency[0];
+        const priceAndCurrency = (_product.price as String).split(" ");
+        const price = (new Number(priceAndCurrency[0]))
+        console.log(price)
         const currency = priceAndCurrency[1];
 
-        const manufacturer = (product.information[0] as String)?.split(": ")[1]
-        const memoryInterface = (product.information[1] as String)?.split(": ")[1]
-        const memory = (product.information[2] as String)?.split(": ")[1];
-        const processorFrequency = (product.information[3] as String)?.split(": ")[1]
-        const memoryFrequency = (product.information[4] as String)?.split(": ")[1]
-        const guarantee = (product.information[5] as String)?.split(": ")[1]
+        const manufacturer = (_product.information[0] as String)?.split(": ")[1];
+        const memoryInterface = (_product.information[1] as String)?.split(
+          ": "
+        )[1];
+        const memory = (_product.information[2] as String)?.split(": ")[1];
+        const processorFrequency = (_product.information[3] as String)?.split(
+          ": "
+        )[1];
+        const memoryFrequency = (_product.information[4] as String)?.split(
+          ": "
+        )[1];
+        const guarantee = (_product.information[5] as String)?.split(": ")[1];
         // TODO: insert products into database:
         // console.log(image)
-
+        const upsertProduct = await prisma.product.upsert({
+          where: {
+            name: _product.name,
+          },
+          update: {
+            image: uploadedImageURL,
+            prices:{
+              connectOrCreate: [
+                {
+                  where: {
+                    store: "Monitor System",
+                  },
+                  create: {
+                    price: new Decimal(29999),
+                    currency: "RSD",
+                    store: "Monitor System"
+                  },
+                }
+              ]
+            },
+            manufacturer: manufacturer,
+            memoryInterface: memoryInterface,
+            memory: memory,
+            processorFrequency: processorFrequency,
+            guarantee: guarantee
+          },
+          create: {
+            name: _product.name,
+            image: uploadedImageURL,
+            prices:{
+              connectOrCreate: [
+                {
+                  where: {
+                    store: "Monitor System",
+                  },
+                  create: {
+                    price: new Decimal(29999),
+                    currency: "RSD",
+                    store: "Monitor System"
+                  },
+                }
+              ]
+            },
+            
+            manufacturer: manufacturer,
+            memoryInterface: memoryInterface,
+            memory: memory,
+            processorFrequency: processorFrequency,
+            guarantee: guarantee
+          },
+        });
+        // const upsertPrice = await prisma.prices.upsert({
+        //   where: {
+        //     productId: _product
+        //   }
+        // })
 
       });
     })
