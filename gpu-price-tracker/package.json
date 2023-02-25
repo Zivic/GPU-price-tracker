@@ -16,6 +16,7 @@
     "@types/react-dom": "18.0.10",
     "chart.js": "^4.2.1",
     "cheerio": "^1.0.0-rc.12",
+    "cloudinary": "^1.34.0",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
