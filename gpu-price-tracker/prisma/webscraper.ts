@@ -45,20 +45,13 @@ async function main() {
           },
           update: {
             image: uploadedImageURL,
-            prices:{
-              connectOrCreate: [
-                {
-                  where: {
-                    store: "Monitor System",
-                  },
-                  create: {
-                    price: new Decimal(29999),
-                    currency: "RSD",
-                    store: "Monitor System"
-                  },
-                }
-              ]
-            },
+            // prices:{
+            //       connectOrCreate: {
+            //         price: new Decimal(29999),
+            //         currency: "RSD",
+            //         store: "Monitor System"
+            //       },
+            // },
             manufacturer: manufacturer,
             memoryInterface: memoryInterface,
             memory: memory,
@@ -68,20 +61,14 @@ async function main() {
           create: {
             name: _product.name,
             image: uploadedImageURL,
-            prices:{
-              connectOrCreate: [
-                {
-                  where: {
-                    store: "Monitor System",
-                  },
-                  create: {
-                    price: new Decimal(29999),
-                    currency: "RSD",
-                    store: "Monitor System"
-                  },
-                }
-              ]
-            },
+            // prices:{
+            //       create: {
+            //         price: new Decimal(29999),
+            //         currency: "RSD",
+            //         store: "Monitor System"
+            //       },
+
+            // },
             
             manufacturer: manufacturer,
             memoryInterface: memoryInterface,
@@ -95,8 +82,29 @@ async function main() {
         //     productId: _product
         //   }
         // })
-
+        const upsertPrice = await prisma.prices.upsert({
+          where:{
+            storeIdentifier: {
+              productId: upsertProduct.id,
+              store: "Monitor System"
+            }
+          },
+          create:{
+                    price: new Decimal(29999),
+                    currency: "RSD",
+                    store: "Monitor System",
+                    product:{ 
+                      connect:{
+                         id: upsertProduct.id
+                        }
+                      }
+          },
+          update:{
+            price: new Decimal(39999),
+          }
+        })
       });
+
     })
     .catch((err) => console.log(err));
 

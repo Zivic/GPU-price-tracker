@@ -55,9 +55,11 @@ model Prices {
   id        Int     @id @default(autoincrement())
   price     Decimal
   currency  String
-  store     String  @unique
+  store     String
   product   Product @relation(fields: [productId], references: [id])
   productId Int
+
+  @@unique([productId, store], name: "storeIdentifier")
 }
 
 //TODO: add log/changes model to track price changes in chart
