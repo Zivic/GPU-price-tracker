@@ -10,15 +10,25 @@ const Card = ({ data }: any) => {
         className="rounded-t-lg"
         // src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
         src={data.image}
+        data-testid="cardImage"
       ></img>
       <div className="flex flex-col text-left m-4">
         <div className="h-24">
-          <p className="text-black text-sm text-center">{data.brand}</p>
-          <p className="text-black text-sm ">{data.title}</p>
+          <p className="text-black text-sm text-center" data-testid="cardBrand">
+            {data.brand}
+          </p>
+          <p className="text-black text-sm " data-testid="cardTitle">
+            {data.title}
+          </p>
         </div>
         <div className="align-bottom">
           <div className="flex  bottom-0 justify-between">
-            <span className="text-black text-2xl self-end">{data.price}</span>
+            <span
+              className="text-black text-2xl self-end"
+              data-testid="cardPrice"
+            >
+              {data.price}
+            </span>
             <div className="flex  right-12 top-0.5 ">
               <span>3%</span>
               <svg
@@ -38,6 +48,7 @@ const Card = ({ data }: any) => {
               <Link
                 href="/product/1"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded right-0"
+                data-testid="cardBuyLink"
               >
                 Buy
               </Link>
