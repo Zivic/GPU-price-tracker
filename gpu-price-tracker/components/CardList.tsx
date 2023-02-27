@@ -6,8 +6,8 @@ import ECommerceCard from "./ECommerceCard";
 const testArray = new Array(20).fill(true, 0, 20);
 
 //TODO: testing purposes only, this logic will be moved to backend
-const gigatronAPI: string =
-  "https://search.gigatron.rs/v1/catalog/get/racunari-i-komponente/komponente/graficke-karte?Gaming=!attr_valDa";
+// const gigatronAPI: string =
+//   "https://search.gigatron.rs/v1/catalog/get/racunari-i-komponente/komponente/graficke-karte?Gaming=!attr_valDa";
 
 const CardList = () => {
   const [cardData, setCardData] = useState<Object[]>([]);
@@ -18,14 +18,12 @@ const CardList = () => {
 
   const getGigatronData = function () {
     // console.log("calling function gigatron");
-    fetch(gigatronAPI)
+    // fetch(gigatronAPI)
+    fetch("http://localhost:3000/api/products")
       .then((response) => response.json())
       .then((data) => {
         // console.log("data", data);
-        const filteredData = data.hits.hits.map(
-          (hit: any) => hit._source.search_result_data
-        );
-        setCardData(filteredData);
+        setCardData(data);
       })
       .catch((err) => console.error(err));
   };

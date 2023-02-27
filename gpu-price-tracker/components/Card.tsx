@@ -15,10 +15,10 @@ const Card = ({ data }: any) => {
       <div className="flex flex-col text-left m-4">
         <div className="h-24">
           <p className="text-black text-sm text-center" data-testid="cardBrand">
-            {data.brand}
+            {data.manufacturer}
           </p>
           <p className="text-black text-sm " data-testid="cardTitle">
-            {data.title}
+            {data.name}
           </p>
         </div>
         <div className="align-bottom">
@@ -27,7 +27,7 @@ const Card = ({ data }: any) => {
               className="text-black text-2xl self-end"
               data-testid="cardPrice"
             >
-              {data.price}
+              {data.lowestPrice}
             </span>
             <div className="flex  right-12 top-0.5 ">
               <span>3%</span>
