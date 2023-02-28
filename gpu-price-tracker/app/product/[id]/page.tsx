@@ -28,7 +28,7 @@ async function getData(id: string | number) {
     .then((res) => {
       return res.json()
     .then((data) => {
-      console.log("Inside:" ,data);
+      // console.log("Inside:" ,data);
       return data;
     });
   })

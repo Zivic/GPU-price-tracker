@@ -25,7 +25,7 @@ res.then((data: any) => {
 const url = cloudinary.url(publicId, {
 //   width: 100,
 //   height: 150,
-  Crop: 'fill'
+  // Crop: 'fill'
 });
 
 return url;

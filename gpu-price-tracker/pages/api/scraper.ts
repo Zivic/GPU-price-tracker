@@ -61,11 +61,12 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         .text()
         .trim();
       const information = $(el).children(infoContext).text().trim().split("  ");
-      const image = $(el)
+      const image: string = $(el)
         .children(imageWrapperContext)
         .children(imageContext)
         .attr("src");
-      const fullImageLink = "https://www.monitor.rs/" + image;
+      const bigImage  = image.replace("200x200", "1000x1000")
+      const fullImageLink = "https://www.monitor.rs/" + bigImage;
       const img_name_clean = image.replace(/^(.+?\.(gif|png|jpe?g)).*$/i, "$1");
       console.log(fullImageLink);
 

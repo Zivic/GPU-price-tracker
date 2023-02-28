@@ -21,10 +21,9 @@ async function main() {
           );
 
         const priceAndCurrency = (_product.price as String).split(" ");
-        const price = (new Number(priceAndCurrency[0]))
-        console.log(price)
+        //TODO: find a cleaner solution for parsing price
+        const price = ( Number(priceAndCurrency[0].replace(".", "").replace(",00", "")))
         const currency = priceAndCurrency[1];
-
         const manufacturer = (_product.information[0] as String)?.split(": ")[1];
         const memoryInterface = (_product.information[1] as String)?.split(
           ": "
@@ -77,11 +76,6 @@ async function main() {
             guarantee: guarantee
           },
         });
-        // const upsertPrice = await prisma.prices.upsert({
-        //   where: {
-        //     productId: _product
-        //   }
-        // })
         const upsertPrice = await prisma.prices.upsert({
           where:{
             storeIdentifier: {
@@ -90,7 +84,7 @@ async function main() {
             }
           },
           create:{
-                    price: new Decimal(29999),
+                    price: new Decimal(price),
                     currency: "RSD",
                     store: "Monitor System",
                     product:{ 
@@ -100,56 +94,14 @@ async function main() {
                       }
           },
           update:{
-            price: new Decimal(39999),
+            price: new Decimal(price),
           }
         })
       });
 
     })
     .catch((err) => console.log(err));
-
-  // await prisma.product.create({
-  //   data: {
-  //     name: "Alice",
-
-  //     email: "alice@prisma.io",
-
-  //     posts: {
-  //       create: { title: "Hello World" },
-  //     },
-
-  //     profile: {
-  //       create: { bio: "I like turtles" },
-  //     },
-  //   },
-  // });
-
-  // const allUsers = await prisma.user.findMany({
-  //   include: {
-  //     posts: true,
-
-  //     profile: true,
-  //   },
-  // });
-
-  // console.dir(allUsers, { depth: null });
-
-  //   //UPDATE
-  //   const post = await prisma.post.update({
-
-  //     where: { id: 1 },
-
-  //     data: { published: true },
-
-  //   })
-
-  //   console.log(post)
-}
-
-//   const allUsers = await prisma.user.findMany()
-
-//   console.log("All users: ", allUsers)
-
+  }
 main()
   .then(async () => {
     await prisma.$disconnect();

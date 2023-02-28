@@ -6,7 +6,7 @@ type ProductProps = {
   product: {
     id: string;
     name: string;
-    price: string;
+    lowestPrice: string;
     image: string;
     manufacturer: string;
     memoryInterface: string;
@@ -19,10 +19,10 @@ type ProductProps = {
 
 const mockCardData = {
   image: "https://img.gigatron.rs/img/products/medium/image615d8cb4c4e5d.png",
-  brand: "Palit",
-  title:
+  manufacturer: "Palit",
+  name:
     "PALIT GeForce RTX 3060 Ti Dual LHR 8GB GDDR6 256-bit NE6306T019P2-190AD",
-  price: "79999.00",
+  lowestPrice: "79999.00 RSD",
 };
 
 const Product: FC<ProductProps> = ({ product }) => {
@@ -40,37 +40,37 @@ const Product: FC<ProductProps> = ({ product }) => {
                   {/* M1 - PRODUCT INFORMATION */}
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                          {product.name}
+                      <div className="flex-shrink-0 w-1/2">
+                        <span className="text-2xl sm:text-3xl overflow-auto leading-none font-bold text-gray-900">
+                          {product?.name}
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
-                          {product.price}
+                          {product?.price}
                         </h3>
-                        <img src={product.image}></img>
+                        <img src={product?.image} className="w-full p-8"></img>
                       </div>
                       <div className="">
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Manufacturer: " + product.manufacturer}
+                          {"Manufacturer: " + product?.manufacturer}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory interface: " + product.memoryInterface}
+                          {"Memory interface: " + product?.memoryInterface}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory: " + product.memory}
+                          {"Memory: " + product?.memory}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
                           {"Processor frequency: " +
-                            product.processorFrequency}
+                            product?.processorFrequency}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory frequency: " + product.memoryFrequency}
+                          {"Memory frequency: " + product?.memoryFrequency}
                         </h3>
                         <h3 className=" mb-4 text-base font-normal text-gray-500">
-                          {"Guarantee: " + product.guarantee}
+                          {"Guarantee: " + product?.guarantee}
                         </h3>
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                          {product.price}
+                          {product?.lowestPrice}
                         </span>
 
                         <div className="flex">
