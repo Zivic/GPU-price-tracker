@@ -7,10 +7,11 @@ const Card = ({ data }: any) => {
   return (
     <div className="w-64 h-auto rounded-lg  m-4 shadow-lg bg-gradient-to-r from-gray-600 to-gray-700">
       <img
-        className="rounded-t-lg"
+        className="rounded-t-lg w-full"
         // src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
         src={data.image}
         data-testid="cardImage"
+        alt="image"
       ></img>
       <div className="flex flex-col text-left m-4">
         <div className="h-24">
@@ -24,7 +25,7 @@ const Card = ({ data }: any) => {
         <div className="align-bottom">
           <div className="flex  bottom-0 justify-between">
             <span
-              className="text-black text-2xl self-end"
+              className="text-black text-xl self-end"
               data-testid="cardPrice"
             >
               {data.lowestPrice}
@@ -46,7 +47,7 @@ const Card = ({ data }: any) => {
                 />
               </svg>
               <Link
-                href="/product/1"
+                href={`/product/${data.id}`}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded right-0"
                 data-testid="cardBuyLink"
               >

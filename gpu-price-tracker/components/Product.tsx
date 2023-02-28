@@ -8,14 +8,12 @@ type ProductProps = {
     name: string;
     price: string;
     image: string;
-    information: {
-      manufacturer: string;
-      memory_interface: string;
-      memory: string;
-      processor_frequency: string;
-      memory_frequency: string;
-      guarantee: string;
-    };
+    manufacturer: string;
+    memoryInterface: string;
+    memory: string;
+    processorFrequency: string;
+    memoryFrequency: string;
+    guarantee: string;
   };
 };
 
@@ -53,25 +51,23 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </div>
                       <div className="">
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Manufacturer: " + product.information.manufacturer}
+                          {"Manufacturer: " + product.manufacturer}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory interface: " +
-                            product.information.memory_interface}
+                          {"Memory interface: " + product.memoryInterface}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory: " + product.information.memory}
+                          {"Memory: " + product.memory}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
                           {"Processor frequency: " +
-                            product.information.processor_frequency}
+                            product.processorFrequency}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory frequency: " +
-                            product.information.memory_frequency}
+                          {"Memory frequency: " + product.memoryFrequency}
                         </h3>
                         <h3 className=" mb-4 text-base font-normal text-gray-500">
-                          {"Guarantee: " + product.information.guarantee}
+                          {"Guarantee: " + product.guarantee}
                         </h3>
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
                           {product.price}
