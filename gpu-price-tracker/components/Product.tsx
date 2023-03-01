@@ -25,6 +25,7 @@ const mockCardData = {
 };
 
 const Product: FC<ProductProps> = ({ product }) => {
+  // console.log(product)
   return (
     <div>
       <div>

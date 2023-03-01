@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/utils/prismaClient.d";
+import { addLowestPriceSingle } from "@/utils/helper";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -11,8 +12,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       where: {
         id: Number(id),
       },
-    });
-    res.status(200).json(product);
+      include: {
+        prices: true,
+      },
+    })
+    if(product){
+      const withLowestPrice = addLowestPriceSingle(product);
+      res.status(200).json(withLowestPrice);
+    }
+    else res.status(404).send(404);
+
   }
   await main();
 };

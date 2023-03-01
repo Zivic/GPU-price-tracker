@@ -16,7 +16,7 @@ const res = cloudinary.uploader.upload(image, {public_id: publicId})
 
 res.then((data: any) => {
   console.log(data);
-  console.log(data.secure_url);
+  // console.log(data.secure_url);
 }).catch((err: Error) => {
   console.log(err);
 });

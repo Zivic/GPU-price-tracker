@@ -13,21 +13,19 @@ const CardList = () => {
   const [cardData, setCardData] = useState<Object[]>([]);
 
   useEffect(() => {
-    getGigatronData();
+    getProducts();
   }, []);
 
-  const getGigatronData = function () {
+  const getProducts = function () {
     // console.log("calling function gigatron");
     // fetch(gigatronAPI)
     fetch("http://localhost:3000/api/products")
       .then((response) => response.json())
       .then((data) => {
-        // console.log("data", data);
         setCardData(data);
       })
       .catch((err) => console.error(err));
   };
-  console.log("cardData", cardData);
 
   return (
     //TODO: Responsive style for grid overlap on small viewports

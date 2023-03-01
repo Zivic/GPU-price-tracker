@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/utils/prismaClient.d";
-
+import { addLowestPrice } from "@/utils/helper";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: {},
@@ -12,19 +12,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         prices: true,
       },
     });
-    const withLowestPrice = products.map((product:Product) => {
-      //TODO: find a cleaner way
-      const lowestPrice = product.prices.sort(
-        (a, b) => Number(a.price) - Number(b.price)
-      )[0];
-
-      return {
-        ...product,
-        lowestPrice: `${lowestPrice.price}  ${lowestPrice.currency}`,
-      };
-    });
+    const withLowestPrice = addLowestPrice(products);
     if (withLowestPrice) res.status(200).json(withLowestPrice);
-    else res.status(404).json("Not found");
+    else res.status(404).send(404);
   }
   await main();
 };
