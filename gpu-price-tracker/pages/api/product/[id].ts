@@ -1,26 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-// // fake data
-// import products from '@/utils/data/products';
+import { prisma } from "@/utils/prismaClient.d";
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { id },
   } = req;
-
+  // ... you will write your Prisma Client queries here
   async function main() {
-    // ... you will write your Prisma Client queries here
     const product = await prisma.product.findUnique({
       where: {
         id: Number(id),
       },
     });
-
-    // const product = products.find(x => x.id === id);
-    // console.log(product);
     res.status(200).json(product);
   }
-  main();
+  await main();
 };
 export default handler;

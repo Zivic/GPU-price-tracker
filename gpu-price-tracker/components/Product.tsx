@@ -20,8 +20,7 @@ type ProductProps = {
 const mockCardData = {
   image: "https://img.gigatron.rs/img/products/medium/image615d8cb4c4e5d.png",
   manufacturer: "Palit",
-  name:
-    "PALIT GeForce RTX 3060 Ti Dual LHR 8GB GDDR6 256-bit NE6306T019P2-190AD",
+  name: "PALIT GeForce RTX 3060 Ti Dual LHR 8GB GDDR6 256-bit NE6306T019P2-190AD",
   lowestPrice: "79999.00 RSD",
 };
 
@@ -45,7 +44,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                           {product?.name}
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
-                          {product?.price}
+                          {product?.lowestPrice}
                         </h3>
                         <img src={product?.image} className="w-full p-8"></img>
                       </div>
