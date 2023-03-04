@@ -109,7 +109,7 @@ const parsePage = (html) => {
   $(productContext).each(async (i: any, el: any) => {
     const price = await $(el).find(".price").text();
     //what is this company doing....
-    const name = $(el)
+    const name: string = $(el)
       .find("h2")
       .text()
       .replace("Grafička karta ", "")
@@ -124,14 +124,62 @@ const parsePage = (html) => {
       .replace("Gaming ", "")
       .replace("VGA ", "")
       .replace("Geforcce", "GeForce")
-      .replace("EGeForce", "GeForce")
+      .replace("EGeForce", "GeForce");
 
+    console.log("=======================");
     console.log("name", name);
     console.log("price", price);
+
+    const splitRegex = new RegExp("\\s|-|/", "g");
+    const model = name.split(splitRegex);
+    const manufacturer = model[0];
+
+    let memory;
+
+    //if there's no space between [number] and GB eg. 8GB
+    model.find((el) => {
+      const gbIndex = el.search("GB");
+      if (el.includes("GB") && el.split("")[gbIndex] !== " ") {
+        //workaround for no string.splice in js
+        const resplice = el.split("").splice(gbIndex, 0, " ").join("");
+
+        memory = resplice;
+      } else memory = el.includes("GB");
+    });
+
+    //warn: may overwrite [memory] multiple times  if name contains it multiple times
+    // eg. name nVidia GeForce RTX 4090 24GB 384bit RTX 4090 X TRIO 24G
+    //filters out memory size from irregular product names + adds space
+    const memorySizeRegex = new RegExp("[0-9]+G", "g");
+    if (!memory) {
+      let realMemory;
+      model.find((el) => { //TODO: don't go through each one, actually use [find]
+        const isIrregular = memorySizeRegex.test(el);
+        if (isIrregular) {
+          console.log("[PARSING memory]");
+
+          if (!el.endsWith(" GB")) {
+            //not starting with 0 eg. 016GB, 08GB
+            const num = el.match("[1-9]([0-9]?)+");
+            console.log(" NUMBER ", num?.[0]);
+            const newMemorySize = `${num?.[0]} GB`;
+            console.log(" NEW ELEMENT", newMemorySize);
+            realMemory = newMemorySize;
+          }
+        }
+      });
+      memory = realMemory;
+    }
+
+    console.log("memory", memory);
+    console.log("manufacturer", manufacturer);
+    products.push(model);
+    // console.table(model);
 
     let prod = $(el).text();
     // console.log("productcontext", prod);
   });
+  // console.table(products);
 };
 
 export default ScraperJakov;
