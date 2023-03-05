@@ -15,7 +15,6 @@ export default async function Page({
 
   return (
     <div>
-      <h1>This is the dynamic page</h1>
       <Product product={data} />
     </div>
   );
