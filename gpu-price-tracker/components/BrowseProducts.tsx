@@ -19,10 +19,12 @@ const BrowseProducts: React.FC<{}> = () => {
         .catch((err) => console.error(err));
     };
 
-    function getProductsByFilter  (filter:Object)  {
-      fetch("http://localhost:3000/api/products/" + filter)
+    function getProductsByFilter  (filter:any)  {
+      console.log("filter", filter)
+      fetch("http://localhost:3000/api/products?" + new URLSearchParams(filter))
         .then((response) => response.json())
         .then((data) => {
+          console.table("FILTERED DATA:", data)
           setProducts(data);
         })
         .catch((err) => console.error(err));
