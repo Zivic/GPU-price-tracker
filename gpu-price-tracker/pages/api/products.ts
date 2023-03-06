@@ -3,32 +3,31 @@ import { prisma } from "@/utils/prismaClient.d";
 import { addLowestPrice } from "@/utils/helper";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    query: {manufacturers},
+    query: { manufacturers },
   } = req;
   // ... you will write your Prisma Client queries here
   async function main() {
     let manufacturers;
-    if(typeof req.query.manufacturers === 'string'){
-      manufacturers = req.query.manufacturers?.split(',');
+    if (typeof req.query.manufacturers === "string") {
+      manufacturers = req.query.manufacturers?.split(",");
     }
-    console.log("api: Query: ", req.query)
-    console.log("api: Manufacturers: ",manufacturers )
+    console.log("api: Query: ", req.query);
+    console.log("api: Manufacturers: ", manufacturers);
     let products;
 
-    if(!manufacturers){
+    if (!manufacturers || manufacturers[0] === "") {
       //default
-       products = await prisma.product.findMany({
+      products = await prisma.product.findMany({
         include: {
           prices: true,
         },
       });
-    }
-    else{
+    } else {
       products = await prisma.product.findMany({
-        where:{
-          manufacturer:{
-            in: manufacturers
-          } 
+        where: {
+          manufacturer: {
+            in: manufacturers,
+          },
         },
         include: {
           prices: true,
