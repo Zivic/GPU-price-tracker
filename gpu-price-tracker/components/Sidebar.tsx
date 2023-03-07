@@ -40,6 +40,9 @@ const Sidebar = (props: { filterProducts: Function }) => {
   const handlePriceFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     setMaxPrice(Number(e.target.value));
+    setFilters({
+      ...filters, priceMax: Number(e.target.value)
+    })
   };
   console.log("FILTERS: ", filters);
 
