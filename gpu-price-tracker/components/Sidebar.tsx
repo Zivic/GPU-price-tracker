@@ -25,17 +25,31 @@ const Sidebar = (props: { filterProducts: Function }) => {
   const handleManufacturerFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked: boolean = e.target.checked;
     const name: string = e.target.name;
-    setFilters({ ...filters, manufacturers: [...filters?.manufacturers, name] });
+    if (isChecked && !filters.manufacturers.includes(name))
+      setFilters({
+        ...filters,
+        manufacturers: [...filters?.manufacturers, name],
+      });
+    else if(!isChecked){
+      setFilters({
+        ...filters,
+        manufacturers: filters.manufacturers.filter((manufacturer) => manufacturer !== name),
+      });
+    }
   };
   const handlePriceFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     setMaxPrice(Number(e.target.value));
+    setFilters({
+      ...filters, priceMax: Number(e.target.value)
+    })
   };
   console.log("FILTERS: ", filters);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log("clicked!")
     e.preventDefault;
-    props.filterProducts(filters)
+    props.filterProducts(filters);
   };
   return (
     <>
