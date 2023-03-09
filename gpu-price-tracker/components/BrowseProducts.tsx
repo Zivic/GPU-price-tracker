@@ -2,6 +2,7 @@
 import React, { useState, useEffect, FC } from "react";
 import Sidebar from "./Sidebar";
 import CardList from "./CardList";
+import Navbar from "./Navbar";
 
 const BrowseProducts: React.FC<{}> = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -59,7 +60,7 @@ const BrowseProducts: React.FC<{}> = () => {
       .catch((err) => console.error(err));
   };
 
-  function getProductsByFilter(filter: any) {
+  const getProductsByFilter = (filter: any) => {
     console.log("filter", filter);
     fetch("http://localhost:3000/api/products?" + new URLSearchParams(filter))
       .then((response) => response.json())
@@ -68,16 +69,19 @@ const BrowseProducts: React.FC<{}> = () => {
         setProducts(data);
       })
       .catch((err) => console.error(err));
-  }
+  };
 
   return (
-    <div className="flex">
-      <Sidebar filterProducts={getProductsByFilter} />
-      <div className="flex justify-center px-40">
-        {/* <h1>Browse window</h1> */}
-        <CardList cardData={products} sortProducts={sortProducts} />
+    <>
+      <Navbar searchProducts = {getProductsByFilter}/>
+      <div className="flex">
+        <Sidebar filterProducts={getProductsByFilter} />
+        <div className="flex justify-center px-40">
+          {/* <h1>Browse window</h1> */}
+          <CardList cardData={products} sortProducts={sortProducts} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default BrowseProducts;
