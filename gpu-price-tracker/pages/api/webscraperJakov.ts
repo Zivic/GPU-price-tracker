@@ -61,6 +61,7 @@ const ScraperJakov = async (
                   );
                   // console.log("NextpageLink: ", textContent);
                   //Hinges on whether last page has this element
+                  //TODO: check whether this is needed ?
                   if (textContent.includes("❯")) {
                     console.log("Proceeding to next page...");
                     // await page.screenshot({path: 'test.png'});
@@ -85,6 +86,13 @@ const ScraperJakov = async (
   }
   await browser.close();
 };
+
+/**
+ * @function
+ * Finds the total number of pages the scraper will need to go through, by looking at the page footer
+ * @param {*} page - The page object (first page)
+ * @returns {Number} - The total number of pages that need to be scraped
+ */
 const getMaxPages = async (page) => {
   let maxPage = 10;
   await page
@@ -99,6 +107,27 @@ const getMaxPages = async (page) => {
   return maxPage;
 };
 
+
+/**
+ * Replaces all occurrences of unwanted words in the text with "" , effectively removing them.
+ * @param {string} text - The text to modify.
+ * @returns {string} - The modified sentence.
+ */
+const cleanupNames = (text:string) => {
+  const trash = [
+    "Grafička karta ",
+    "Grafička kartica ",
+    "Graficka kartica ",
+    "Grafičke karte ",
+    "Graficka karta ",
+    "SVGA ",
+    "PCIE ","PCIe ","PCIe ","PCI-E ","GAMING ","Gaming ","VGA ",
+  ];
+  return trash.reduce((f,s,i) => 
+    `${f}`.replace(new RegExp(s, 'ig'), ""), text
+  )
+}
+
 const parsePage = (html) => {
   //   console.log("CONTENTTTT", html);
   const $ = cheerio.load(html);
@@ -108,30 +137,23 @@ const parsePage = (html) => {
   let products = new Array<Object>();
   $(productContext).each(async (i: any, el: any) => {
     const price = await $(el).find(".price").text();
+
+
     //what is this company doing....
     const name: string = $(el)
       .find("h2")
-      .text()
-      .replace("Grafička karta ", "")
-      .replace("Grafička kartica ", "")
-      .replace("Graficka kartica", "")
-      .replace("Grafičke karte ", "")
-      .replace("SVGA ", "")
-      .replace("PCIE ", "")
-      .replace("PCIe ", "")
-      .replace("PCI-E ", "")
-      .replace("GAMING ", "")
-      .replace("Gaming ", "")
-      .replace("VGA ", "")
+      .text();
+      const cleanName: string = cleanupNames(name)
+      cleanName
       .replace("Geforcce", "GeForce")
       .replace("EGeForce", "GeForce");
 
     console.log("=======================");
-    console.log("name", name);
+    console.log("name", cleanName);
     console.log("price", price);
 
     const splitRegex = new RegExp("\\s|-|/", "g");
-    const model = name.split(splitRegex);
+    const model = cleanName.split(splitRegex);
     const manufacturer = model[0];
 
     let memory;
@@ -153,7 +175,8 @@ const parsePage = (html) => {
     const memorySizeRegex = new RegExp("[0-9]+G", "g");
     if (!memory) {
       let realMemory;
-      model.find((el) => { //TODO: don't go through each one, actually use [find]
+      model.find((el) => {
+        //TODO: don't go through each one, actually use [find]
         const isIrregular = memorySizeRegex.test(el);
         if (isIrregular) {
           console.log("[PARSING memory]");
@@ -166,6 +189,7 @@ const parsePage = (html) => {
             console.log(" NEW ELEMENT", newMemorySize);
             realMemory = newMemorySize;
           }
+          
         }
       });
       memory = realMemory;
