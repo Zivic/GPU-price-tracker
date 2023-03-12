@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import next from "next";
 import { resolve } from "path";
+import { Page } from "puppeteer";
 const cheerio = require("cheerio");
 var fs = require("fs");
 var http = require("http");
@@ -26,11 +27,10 @@ const ScraperJakov = async (
 ) => {
   const browser = await puppeteer.launch();
   try {
-    await browser.newPage().then(async (page) => {
+    await browser.newPage().then(async (page: Page) => {
       return page.goto(url).then(async function () {
         page.waitForSelector(".pagination_nav");
         console.log("calling maxpages");
-        let pagesAvailable = true;
         let currentPage = 1;
         let maxPage: number = await getMaxPages(page);
 
@@ -42,12 +42,13 @@ const ScraperJakov = async (
           console.log("iteration: ", currentPage);
           currentPage++;
 
+          //Waits until data is loaded (it loads skeletons otherwise)
           await page
             .waitForSelector(".product_item_wrap")
             .then(() => {
               return page.content();
             })
-            .then((html) => {
+            .then((html: string) => {
               parsePage(html);
             })
             .then(() => {
@@ -107,13 +108,12 @@ const getMaxPages = async (page) => {
   return maxPage;
 };
 
-
 /**
  * Replaces all occurrences of unwanted words in the text with "" , effectively removing them.
  * @param {string} text - The text to modify.
  * @returns {string} - The modified sentence.
  */
-const cleanupNames = (text:string) => {
+const cleanupNames = (text: string) => {
   const trash = [
     "Grafička karta ",
     "Grafička kartica ",
@@ -121,14 +121,27 @@ const cleanupNames = (text:string) => {
     "Grafičke karte ",
     "Graficka karta ",
     "SVGA ",
-    "PCIE ","PCIe ","PCIe ","PCI-E ","GAMING ","Gaming ","VGA ",
+    "PCIE ",
+    "PCIe ",
+    "PCIe ",
+    "PCI-E ",
+    "GAMING ",
+    "Gaming ",
+    "VGA ",
   ];
-  return trash.reduce((f,s,i) => 
-    `${f}`.replace(new RegExp(s, 'ig'), ""), text
-  )
-}
+  return trash.reduce(
+    (f, s, i) => `${f}`.replace(new RegExp(s, "ig"), ""),
+    text
+  );
+};
 
-const parsePage = (html) => {
+/**
+ * Uses cheerio to filter out product data from the page
+ * @param {string} html - The entire html page, aka the page.content returned by puppeteer after the page loads completely.
+ * @returns void
+ * @todo Should return response with the product array, correctly formatted and typed
+ */
+const parsePage = (html: string) => {
   //   console.log("CONTENTTTT", html);
   const $ = cheerio.load(html);
   // const link = $.find('.product_item_wrap').attr("href")
@@ -137,16 +150,9 @@ const parsePage = (html) => {
   let products = new Array<Object>();
   $(productContext).each(async (i: any, el: any) => {
     const price = await $(el).find(".price").text();
-
-
-    //what is this company doing....
-    const name: string = $(el)
-      .find("h2")
-      .text();
-      const cleanName: string = cleanupNames(name)
-      cleanName
-      .replace("Geforcce", "GeForce")
-      .replace("EGeForce", "GeForce");
+    const name: string = $(el).find("h2").text();
+    const cleanName: string = cleanupNames(name);
+    cleanName.replace("Geforcce", "GeForce").replace("EGeForce", "GeForce");
 
     console.log("=======================");
     console.log("name", cleanName);
@@ -164,7 +170,6 @@ const parsePage = (html) => {
       if (el.includes("GB") && el.split("")[gbIndex] !== " ") {
         //workaround for no string.splice in js
         const resplice = el.split("").splice(gbIndex, 0, " ").join("");
-
         memory = resplice;
       } else memory = el.includes("GB");
     });
@@ -172,6 +177,7 @@ const parsePage = (html) => {
     //warn: may overwrite [memory] multiple times  if name contains it multiple times
     // eg. name nVidia GeForce RTX 4090 24GB 384bit RTX 4090 X TRIO 24G
     //filters out memory size from irregular product names + adds space
+
     const memorySizeRegex = new RegExp("[0-9]+G", "g");
     if (!memory) {
       let realMemory;
@@ -189,7 +195,6 @@ const parsePage = (html) => {
             console.log(" NEW ELEMENT", newMemorySize);
             realMemory = newMemorySize;
           }
-          
         }
       });
       memory = realMemory;
