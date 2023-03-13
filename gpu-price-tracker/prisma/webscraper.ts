@@ -1,6 +1,6 @@
 import { Decimal } from "@prisma/client/runtime";
 import { UploadImage } from "../utils/data/cloudinary";
-import { prisma } from "@/utils/prismaClient.d";
+import { prisma } from "../utils/prismaClient";
 
 // ... you will write your Prisma Client queries here
 async function main() {

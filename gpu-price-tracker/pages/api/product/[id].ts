@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/utils/prismaClient.d";
+import { prisma } from "@/utils/prismaClient";
 import { addLowestPriceSingle } from "@/utils/helper";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

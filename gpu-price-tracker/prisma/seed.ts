@@ -1,4 +1,4 @@
-import { prisma } from "@/utils/prismaClient.d";
+import { prisma } from "@/utils/prismaClient";
 
 async function main() {
   // ... you will write your Prisma Client queries here

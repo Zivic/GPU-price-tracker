@@ -36,7 +36,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src",
-    "./cypress.d.ts"
+    "./cypress.d.ts",
   ],
   
   "exclude": [
@@ -44,8 +44,10 @@
   ]
   ,
   "ts-node": {
+    "transpileOnly": true,
     "compilerOptions": {
-      "module": "CommonJS"
+      "module": "CommonJS",
+      // "preserveSymlinks": true
     }
   }
   ,
