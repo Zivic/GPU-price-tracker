@@ -16,9 +16,6 @@ type JSONResponse = {
 };
 const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   try {
-    //@ts-ignore
-    let retval: ScrapedProduct = {store: "Monitor System"};
-
     const response = await fetch(
       `https://www.monitor.rs/graficke-karte?limit=48&sort=artid_desc&strana=0&price_retail=Min:4050-Max:465355&`
     );
@@ -34,6 +31,8 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     let products = new Array<Object>();
     $(productContext).each((i: any, el: any) => {
+      // @ts-ignore
+      let retval: ScrapedProduct = { store: "Monitor System" };
       retval.name = $(el).children(nameContext).text().trim();
 
       const priceAndCurrency: Array<string> = $(el)
@@ -65,12 +64,12 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const img_name_clean = image.replace(/^(.+?\.(gif|png|jpe?g)).*$/i, "$1");
       // console.log(fullImageLink);
       // console.log(img_name_clean);
-      retval.fullImageLink = fullImageLink
+      retval.fullImageLink = fullImageLink;
       // console.log("retval", retval);
 
       products.push(retval);
     });
-
+    // console.log("products: ", products);
     res.status(200).json({ name: "success", results: products });
   } catch (err: any) {
     console.error(err);
