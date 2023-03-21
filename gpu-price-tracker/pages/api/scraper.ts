@@ -63,9 +63,9 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const fullImageLink = "https://www.monitor.rs/" + bigImage;
       const img_name_clean = image.replace(/^(.+?\.(gif|png|jpe?g)).*$/i, "$1");
       // console.log(fullImageLink);
-      // console.log(img_name_clean);
+      console.log(img_name_clean);
       retval.fullImageLink = fullImageLink;
-      // console.log("retval", retval);
+      console.log("retval", retval);
 
       products.push(retval);
     });

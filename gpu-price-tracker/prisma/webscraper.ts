@@ -11,8 +11,8 @@ async function main() {
     })
     .then((data) => {
       data.results.forEach(async (product: any) => {
-        console.log('product', product)
-        
+        console.log("product", product);
+
         const uploadedImageURL: string = UploadImage(
           product.fullImageLink,
           product.name
@@ -42,27 +42,42 @@ async function main() {
           },
         });
 
-        const upsertPrice = await prisma.prices.upsert({
-          where: {
-            storeIdentifier: {
-              productId: upsertProduct.id,
-              store: product.store,
-            },
-          },
-          create: {
-            price: new Decimal(product.price),
-            currency: "RSD",
-            store: product.store,
-            product: {
-              connect: {
-                id: upsertProduct.id,
+        const upsertPrice = await prisma.prices
+          .upsert({
+            where: {
+              storeIdentifier: {
+                productId: upsertProduct.id,
+                store: product.store,
               },
             },
-          },
-          update: {
-            price: new Decimal(product.price),
-          },
-        });
+            create: {
+              price: new Decimal(product.price),
+              currency: "RSD",
+              store: product.store,
+              product: {
+                connect: {
+                  id: upsertProduct.id,
+                },
+              },
+            },
+            update: {
+              price: new Decimal(product.price),
+            },
+          })
+          .then(async () => {
+            const createPriceLog = await prisma.priceLogs.create({
+              data: {
+                price: new Decimal(product.price),
+                currency: "RSD",
+                store: product.store,
+                product: {
+                  connect: {
+                    id: upsertProduct.id,
+                  },
+                },
+              },
+            });
+          });
       });
     })
     .catch((err) => console.log(err));
