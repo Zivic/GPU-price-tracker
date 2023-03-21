@@ -14,29 +14,6 @@ type Data = {
 type JSONResponse = {
   name: string;
 };
-
-// var downloadImageToUrl = (
-//   url: string,
-//   filename: string,
-//   callback: Function
-// ) => {
-//   var client = http;
-//   if (url.toString().indexOf("https") === 0) {
-//     client = https;
-//   }
-//   client
-//     .request(url, function (response: any) {
-//       var data = new Stream();
-//       response.on("data", function (chunk: any) {
-//         data.push(chunk);
-//       });
-//       response.on("end", function () {
-//         fs.writeFileSync(filename, data.read());
-//       });
-//     })
-//     .end();
-// };
-
 const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   try {
     const response = await fetch(
@@ -54,40 +31,45 @@ const Scraper = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     let products = new Array<Object>();
     $(productContext).each((i: any, el: any) => {
-      const name = $(el).children(nameContext).text().trim();
-      const price = $(el)
+      // @ts-ignore
+      let retval: ScrapedProduct = { store: "Monitor System" };
+      retval.name = $(el).children(nameContext).text().trim();
+
+      const priceAndCurrency: Array<string> = $(el)
         .children(priceContext)
         .children(priceContext2)
         .text()
-        .trim();
+        .trim()
+        .split(" ");
+      //TODO: find a cleaner solution for parsing price
+      retval.price = Number(
+        priceAndCurrency[0].replace(".", "").replace(",00", "")
+      );
+      retval.currency = priceAndCurrency[1];
+
       const information = $(el).children(infoContext).text().trim().split("  ");
+      retval.manufacturer = (information[0] as String)?.split(": ")[1];
+      retval.memoryInterface = (information[1] as String)?.split(": ")[1];
+      retval.memory = (information[2] as String)?.split(": ")[1];
+      retval.processorFrequency = (information[3] as String)?.split(": ")[1];
+      retval.memoryFrequency = (information[4] as String)?.split(": ")[1];
+      retval.guarantee = (information[5] as String)?.split(": ")[1];
+
       const image: string = $(el)
         .children(imageWrapperContext)
         .children(imageContext)
         .attr("src");
-      const bigImage  = image.replace("200x200", "1000x1000")
+      const bigImage = image.replace("200x200", "1000x1000");
       const fullImageLink = "https://www.monitor.rs/" + bigImage;
       const img_name_clean = image.replace(/^(.+?\.(gif|png|jpe?g)).*$/i, "$1");
-      console.log(fullImageLink);
-
+      // console.log(fullImageLink);
       console.log(img_name_clean);
-      // const filePath =
-      //   "/home/djole/Documents/Repo/GPU-price-tracker/gpu-price-tracker/images/" +
-      //   img_name_clean;
-      // downloadImageToUrl(fullImageLink, filePath, () => {});
-      // try{
-      //   fs.createWriteStream('/home/djole/Documents/Repo/GPU-price-tracker/gpu-price-tracker/images/'+img_name_clean)
-      // }
-      // catch {
-      //   console.log("Error saving image to file system");
-      // }
-      // console.log("NAME:", name);
-      // console.log("PRICE", price);
-      // console.log("image:", image);
+      retval.fullImageLink = fullImageLink;
+      console.log("retval", retval);
 
-      products.push({ name: name, price: price, full_image_link: fullImageLink, information: information });
+      products.push(retval);
     });
-
+    // console.log("products: ", products);
     res.status(200).json({ name: "success", results: products });
   } catch (err: any) {
     console.error(err);

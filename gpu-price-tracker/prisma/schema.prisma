@@ -41,6 +41,7 @@ model Product {
   id     Int      @id @default(autoincrement())
   name   String   @unique
   prices Prices[]
+  priceLogs PriceLogs[]
   image  String
 
   model              String?
@@ -53,14 +54,27 @@ model Product {
 }
 
 model Prices {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   price     Decimal
   currency  String
   store     String
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
   productId Int
+  updatedAt DateTime @updatedAt
 
   @@unique([productId, store], name: "storeIdentifier")
+}
+
+model PriceLogs {
+  id        Int      @id @default(autoincrement())
+  price     Decimal
+  currency  String
+  store     String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, store, updatedAt], name: "storeIdentifier")
 }
 
 //TODO: add log/changes model to track price changes in chart
