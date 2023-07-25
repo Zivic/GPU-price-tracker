@@ -25,24 +25,20 @@ const ThreeCanvas = () => {
     renderer.autoClear = false;
     renderer.setClearColor(0x000000, 0.0);
     // renderer.physicallyCorrectLights = true;
-    camera.position.setZ(10);
+    camera.position.setZ(8);
+    camera.position.setY(4);
     renderer.render(scene, camera);
 
-    //Creating Torus, TODO: remove after testing
-    const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-    const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
-    const torus = new THREE.Mesh(geometry, material);
-    torus.position.y = -20;
 
-    scene.add(torus);
+
 
     //Creating light sources
-    const pointLight = new THREE.PointLight(0xFFFFFF, 1);
+    const pointLight = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(25, 15, 5);
-    const pointLight2 = new THREE.PointLight(0xFFFFFF, 1);
+    const pointLight2 = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(0, 10, 10);
     const ambientLight = new THREE.AmbientLight(0x6b0219);
-    scene.add(pointLight,pointLight2, ambientLight);
+    scene.add(pointLight, pointLight2, ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -66,19 +62,35 @@ const ThreeCanvas = () => {
         console.log("An error happened");
       }
     );
+    let xDirection = "POSITIVE";
+    let yDirection = "POSITIVE";
+    let zDirection = "POSITIVE";
+
 
     function animate() {
       requestAnimationFrame(animate);
 
-      torus.rotation.x += 0.005;
-      torus.rotation.y += 0.005;
-      torus.rotation.z += 0.002;
 
+      console.log(scene.children)
       //GPU rotation, array index needs to be adjusted if more assets are added
-      if(scene.children[4]){
-      scene.children[4].rotation.x += 0.0015;
-      scene.children[4].rotation.y += 0.0015;
-      scene.children[4].rotation.z += 0.0005;
+      if (scene.children[3]) {
+        if (scene.children[3].rotation.x > 0.8) xDirection = "NEGATIVE";
+        else if (scene.children[3].rotation.x < 0) xDirection = "POSITIVE";
+
+        if (xDirection === "POSITIVE") scene.children[3].rotation.x += 0.0015;
+        else scene.children[3].rotation.x -= 0.0015;
+
+        if (scene.children[3].rotation.y > 0.8) yDirection = "NEGATIVE";
+        else if (scene.children[3].rotation.y < 0) yDirection = "POSITIVE";
+
+        if (yDirection === "POSITIVE") scene.children[3].rotation.y += 0.001;
+        else scene.children[3].rotation.y -= 0.001;
+
+        if (scene.children[3].rotation.z > 0.8) zDirection = "NEGATIVE";
+        else if (scene.children[3].rotation.z < 0) zDirection = "POSITIVE";
+
+        if (zDirection === "POSITIVE") scene.children[3].rotation.z += 0.0005;
+        else scene.children[3].rotation.z -= 0.0005;
       }
       controls.update();
       renderer.render(scene, camera);
