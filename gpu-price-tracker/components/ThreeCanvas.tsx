@@ -37,11 +37,11 @@ const ThreeCanvas = () => {
     scene.add(torus);
 
     //Creating light sources
-    const pointLight = new THREE.PointLight(0xffffff, 3);
+    const pointLight = new THREE.PointLight(0xFFFFFF, 1);
     pointLight.position.set(25, 15, 5);
-    const pointLight2 = new THREE.PointLight(0xffffff, 3);
+    const pointLight2 = new THREE.PointLight(0xFFFFFF, 1);
     pointLight.position.set(0, 10, 10);
-    const ambientLight = new THREE.AmbientLight(0x404040);
+    const ambientLight = new THREE.AmbientLight(0x6b0219);
     scene.add(pointLight,pointLight2, ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -90,7 +90,7 @@ const ThreeCanvas = () => {
   return (
     <canvas
       id="bg"
-      className="bg-gradient-to-b from-cyan-400  to-purple-700"
+      className="bg-gradient-to-b from-[#212034]  to-[#191829]"
     ></canvas>
   );
 };
