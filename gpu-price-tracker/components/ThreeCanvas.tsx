@@ -102,7 +102,7 @@ const ThreeCanvas = () => {
   return (
     <canvas
       id="bg"
-      className="bg-gradient-to-b from-[#212034]  to-[#191829]"
+      className=" radial-gradient-background"
     ></canvas>
   );
 };

@@ -1,11 +1,13 @@
 import ThreeCanvas from "@/components/ThreeCanvas";
 import styles from "./page.module.css";
+import Navbar2 from "@/components/HomeNavbar";
 
 export default function About() {
   return (
     <div>
       <div className="flex justify-center align-middle">
-        <div className="absolute flex flex-col z-10 backdrop-blur-sm  bg-transparent mt-40 gap-4">
+        <Navbar2/>
+        <div className="absolute flex flex-col z-10  bg-transparent mt-40 gap-4 ">
           <h1 className=" text-[40px] font-bold text-center ">
             Save Big with GPU Price Tracker!
           </h1>
