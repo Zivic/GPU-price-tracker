@@ -5,9 +5,9 @@ const Card = ({ data }: any) => {
   // console.log("card data:", data);
   // console.log("price:", data.price);
   return (
-    <div className="w-64 h-auto rounded-lg  m-4 shadow-lg bg-gradient-to-r from-gray-600 to-gray-700">
+    <div className="w-64 h-auto rounded-lg  m-4 shadow-lg  bg-[#222222] ">
       <img
-        className="rounded-t-lg w-full"
+        className="rounded-lg w-4/5 mx-auto mt-6"
         // src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
         src={data.image}
         data-testid="cardImage"
@@ -15,17 +15,17 @@ const Card = ({ data }: any) => {
       ></img>
       <div className="flex flex-col text-left m-4">
         <div className="h-24">
-          <p className="text-black text-sm text-center" data-testid="cardBrand">
+          <p className=" text-sm text-center" data-testid="cardBrand">
             {data.manufacturer}
           </p>
-          <p className="text-black text-sm " data-testid="cardTitle">
+          <p className=" text-sm " data-testid="cardTitle">
             {data.name}
           </p>
         </div>
         <div className="align-bottom">
           <div className="flex  bottom-0 justify-between">
             <span
-              className="text-black text-xl self-end"
+              className=" text-xl font-bold self-end"
               data-testid="cardPrice"
             >
               {data.lowestPrice}
