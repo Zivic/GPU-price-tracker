@@ -30,10 +30,12 @@ const Sidebar = (props: { filterProducts: Function }) => {
         ...filters,
         manufacturers: [...filters?.manufacturers, name],
       });
-    else if(!isChecked){
+    else if (!isChecked) {
       setFilters({
         ...filters,
-        manufacturers: filters.manufacturers.filter((manufacturer) => manufacturer !== name),
+        manufacturers: filters.manufacturers.filter(
+          (manufacturer) => manufacturer !== name
+        ),
       });
     }
   };
@@ -41,13 +43,14 @@ const Sidebar = (props: { filterProducts: Function }) => {
     console.log(e.target.value);
     setMaxPrice(Number(e.target.value));
     setFilters({
-      ...filters, priceMax: Number(e.target.value)
-    })
+      ...filters,
+      priceMax: Number(e.target.value),
+    });
   };
   console.log("FILTERS: ", filters);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log("clicked!")
+    console.log("clicked!");
     e.preventDefault;
     props.filterProducts(filters);
   };
@@ -78,10 +81,10 @@ const Sidebar = (props: { filterProducts: Function }) => {
 
       <aside
         id="separator-sidebar"
-        className=" top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className=" top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 text-sm"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-[#141414] border-r-2 border-t-2 border-[#242424] text-[#818181]">
           {/* CHECKBOXES */}
           <label className="form-label">Manufacturers</label>
 
@@ -89,12 +92,32 @@ const Sidebar = (props: { filterProducts: Function }) => {
             {testData.map((manufacturer, index) => {
               return (
                 <li key={index}>
+                  <div className="mt-3">
                   <input
+                    className="relative peer shrink-0 appearance-none w-4 h-4 rounded-sm bg-[#343434] checked:bg-blue-500"
                     type="checkbox"
                     name={manufacturer}
                     onClick={(e: any) => handleManufacturerFilter(e)}
                   />
                   <label className="ml-4">{manufacturer}</label>
+                  <svg
+                    className="
+                      absolute 
+                      w-3 h-3 -mt-[18px] ml-[2px]
+                      hidden peer-checked:block
+                      pointer-events-none
+                      "
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#FFFFFF"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  </div>
                 </li>
               );
             })}

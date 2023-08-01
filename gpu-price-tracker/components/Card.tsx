@@ -5,15 +5,15 @@ const Card = ({ data }: any) => {
   // console.log("card data:", data);
   // console.log("price:", data.price);
   return (
-    <div className="w-64 h-auto rounded-lg  m-4 shadow-lg  bg-[#222222] ">
+    <div className="w-64 h-auto rounded-lg  m-4 shadow-lg  bg-[#222222] p-6 ">
       <img
-        className="rounded-lg w-4/5 mx-auto mt-6"
+        className="rounded-lg w-full  "
         // src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
         src={data.image}
         data-testid="cardImage"
         alt="image"
       ></img>
-      <div className="flex flex-col text-left m-4">
+      <div className="flex flex-col text-left mt-4">
         <div className="h-24">
           <p className=" text-sm text-center" data-testid="cardBrand">
             {data.manufacturer}
@@ -48,7 +48,7 @@ const Card = ({ data }: any) => {
               </svg>
               <Link
                 href={`/product/${data.id}`}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded right-0"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-2 py-2 px-4 rounded right-0"
                 data-testid="cardBuyLink"
               >
                 Buy
