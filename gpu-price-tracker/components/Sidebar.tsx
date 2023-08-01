@@ -81,14 +81,14 @@ const Sidebar = (props: { filterProducts: Function }) => {
 
       <aside
         id="separator-sidebar"
-        className=" top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 text-sm"
+        className=" top-0 left-0 z-40 w-64  transition-transform -translate-x-full sm:translate-x-0 text-sm"
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-[#141414] border-r-2 border-t-2 border-[#242424] text-[#818181]">
           {/* CHECKBOXES */}
-          <label className="form-label">Manufacturers</label>
+          <label className="form-label font-medium text-base ml-8 text-gray-300">Manufacturers</label>
 
-          <ul className="space-y-2 ml-8 mt-3">
+          <ul className="space-y-2 ml-8 mt-4">
             {testData.map((manufacturer, index) => {
               return (
                 <li key={index}>
@@ -111,9 +111,9 @@ const Sidebar = (props: { filterProducts: Function }) => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#FFFFFF"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
@@ -123,10 +123,10 @@ const Sidebar = (props: { filterProducts: Function }) => {
             })}
           </ul>
           {/* PRICE SLIDER */}
-          <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+          <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700 mx-4">
             <li>
               <div className="relative pt-1">
-                <label className="form-label">Max price</label>
+                <label className="form-label font-medium text-base ml-8 text-gray-300">Max price</label>
                 <div className="text-center ">
                   <label className="form-label text-center">{maxPrice}</label>
                 </div>

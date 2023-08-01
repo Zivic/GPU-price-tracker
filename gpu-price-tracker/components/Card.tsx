@@ -15,10 +15,10 @@ const Card = ({ data }: any) => {
       ></img>
       <div className="flex flex-col text-left mt-4">
         <div className="h-24">
-          <p className=" text-sm text-center" data-testid="cardBrand">
+          <p className=" font-bold text-center" data-testid="cardBrand">
             {data.manufacturer}
           </p>
-          <p className=" text-sm " data-testid="cardTitle">
+          <p className=" text-sm text-gray-400 " data-testid="cardTitle">
             {data.name}
           </p>
         </div>
