@@ -105,6 +105,15 @@ a {
     color-scheme: dark;
   }
 }
+
+.radial-gradient-background{
+  background: radial-gradient(
+    ellipse at bottom right,
+    #00d6b0,
+    #023f8e 50%,
+    #000000 120%
+  );
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

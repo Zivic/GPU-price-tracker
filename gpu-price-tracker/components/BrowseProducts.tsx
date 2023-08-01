@@ -76,7 +76,7 @@ const BrowseProducts: React.FC<{}> = () => {
       <Navbar searchProducts = {getProductsByFilter}/>
       <div className="flex">
         <Sidebar filterProducts={getProductsByFilter} />
-        <div className="flex justify-center px-40">
+        <div className="flex justify-center w-full px-10 bg-[#141414] border-t-2 border-[#242424] text-white ">
           {/* <h1>Browse window</h1> */}
           <CardList cardData={products} sortProducts={sortProducts} />
         </div>
