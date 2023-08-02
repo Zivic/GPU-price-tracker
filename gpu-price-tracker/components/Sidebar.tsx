@@ -95,7 +95,7 @@ const Sidebar = (props: { filterProducts: Function }) => {
         className=" top-0 left-0 z-40 w-64  transition-transform -translate-x-full sm:translate-x-0 text-sm"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-[#141414] border-r-2 border-t-2 border-[#242424] text-[#818181]">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-dark-bg border-r-2 border-t-2 border-dark-border text-dark-text">
           {/* CHECKBOXES */}
           <label className="form-label font-medium text-base ml-8 text-gray-300">
             Manufacturers

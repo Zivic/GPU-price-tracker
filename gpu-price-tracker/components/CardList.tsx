@@ -37,7 +37,7 @@ const CardList = (props: { cardData: Array<Object>, sortProducts:Function }) => 
               </svg>
             </button>
           </div>
-
+    
           {/* <!--
     Dropdown menu, show/hide based on menu state.
 

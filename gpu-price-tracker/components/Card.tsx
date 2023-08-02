@@ -7,7 +7,7 @@ const Card = ({ data }: any) => {
   // console.log("card data:", data);
   // console.log("price:", data.price);
   return (
-    <div className="w-64 h-auto rounded-lg  m-4 shadow-lg  bg-[#222222] p-6 ">
+    <div className="w-64 h-auto rounded-lg  m-4 shadow-lg  bg-dark-card p-6 ">
       <img
         className="rounded-lg w-full  "
         // src="https://media.ldlc.com/r1600/ld/products/00/05/72/62/LD0005726238_1.jpg"
