@@ -14,23 +14,25 @@ const testData = [
 ];
 
 const testDataVram = [
-  "32GB",
-  "24GB",
-  "16GB",
-  "12GB",
-  "8GB",
-  "4GB",
-  "2GB",
-  "1GB",
+  "24 GB",
+  "20 GB",
+  "16 GB",
+  "12 GB",
+  "8 GB",
+  "4 GB",
+  "2 GB",
+  "1 GB",
 ];
 type Filter = {
   priceMin?: number;
   priceMax?: number;
   manufacturers: Array<string>;
+  vram: Array<string>;
+
 };
 
 const Sidebar = (props: { filterProducts: Function }) => {
-  const [filters, setFilters] = useState<Filter>({ manufacturers: [] });
+  const [filters, setFilters] = useState<Filter>({ manufacturers: [], vram:[] });
   const [maxPrice, setMaxPrice] = useState<number>();
 
   const handleManufacturerFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +52,26 @@ const Sidebar = (props: { filterProducts: Function }) => {
       });
     }
   };
+  
+  const handleVramFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked: boolean = e.target.checked;
+    const name: string = e.target.name;
+    if (isChecked && !filters.vram.includes(name))
+      setFilters({
+        ...filters,
+        vram: [...filters?.vram, name],
+      });
+    else if (!isChecked) {
+      setFilters({
+        ...filters,
+        vram: filters.vram.filter(
+          (vram) => vram !== name
+        ),
+      });
+    }
+  };
+  
+
   const handlePriceFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     setMaxPrice(Number(e.target.value));
@@ -150,7 +172,7 @@ const Sidebar = (props: { filterProducts: Function }) => {
                       className="relative peer shrink-0 appearance-none w-4 h-4 rounded-sm bg-[#343434] checked:bg-blue-500"
                       type="checkbox"
                       name={vram}
-                      onClick={(e: any) => handleManufacturerFilter(e)}
+                      onClick={(e: any) => handleVramFilter(e)}
                     />
                     <label className="ml-4">{vram}</label>
                     <svg
