@@ -50,7 +50,7 @@ const Card = ({ data }: any) => {
               </svg> */}
               <Link
                 href={`/product/${data.id}`}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-medium  py-1 px-6 rounded-lg right-0"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-medium  py-1 my-auto px-6 rounded-lg right-0"
                 data-testid="cardBuyLink"
               >
                 Buy

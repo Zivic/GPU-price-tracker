@@ -1,15 +1,19 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 
-const Navbar = (props: { searchProducts: Function }) => {
+const Navbar = (props: {
+  isSearchActive: boolean;
+  searchProducts: Function | null;
+}) => {
   const handleSearch = (e: any) => {
     console.log("E TARGET VALUE:", e.target.value);
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && props.searchProducts) {
       console.log(e);
 
       props.searchProducts({ searchString: e.target.value });
     }
-  }
+  };
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-dark-bg">
@@ -24,7 +28,7 @@ const Navbar = (props: { searchProducts: Function }) => {
             GPU Price Tracker
           </span>
         </Link>
-        <div className="flex md:order-2 "  >
+        <div className="flex md:order-2 ">
           <button
             type="button"
             data-collapse-toggle="navbar-search"
@@ -69,7 +73,9 @@ const Navbar = (props: { searchProducts: Function }) => {
               id="search-navbar"
               className="block w-full p-2 pl-10 text-sm text-gray-900  rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-dark-card dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search..."
-              onKeyDown={e => handleSearch(e)}
+              onKeyDown={(e) => {
+                if (props.isSearchActive && props.isSearchActive) handleSearch(e)
+              }}
             />
           </div>
           <button
@@ -124,7 +130,7 @@ const Navbar = (props: { searchProducts: Function }) => {
             />
           </div>
           <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  dark:bg-dark-bg  ">
-          <li>
+            <li>
               <Link
                 href="/browse"
                 className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
