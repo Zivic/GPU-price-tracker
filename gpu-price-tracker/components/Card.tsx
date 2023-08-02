@@ -30,7 +30,7 @@ const Card = ({ data }: any) => {
               className=" text-xl font-bold self-end my-auto"
               data-testid="cardPrice"
             >
-              {data.lowestPrice}
+              {data.lowestPriceFormatted}
             </h1>
             <div className="flex  right-12 top-0.5 ">
               {/* <span>3%</span>
