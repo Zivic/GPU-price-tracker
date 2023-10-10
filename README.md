@@ -11,7 +11,6 @@ The GPU Price Tracker is a powerful web scraping and price aggregation tool buil
 - [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Installation and Setup](#installation-and-setup)
-- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
@@ -69,9 +68,6 @@ To get started with the GPU Price Tracker, follow these steps:
 
 5. **Access the Web Application**: Open your web browser and access the application at `http://localhost:3000`.
 
-## Usage
-
-_(Include instructions and examples for using the GPU Price Tracker here)_
 
 ## Contributing
 
