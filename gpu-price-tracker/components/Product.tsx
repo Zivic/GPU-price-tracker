@@ -29,50 +29,64 @@ const Product: FC<ProductProps> = ({ product }) => {
   // console.log(product)
   return (
     <div>
-      <Navbar isSearchActive={false} searchProducts={null}/>
+      <Navbar isSearchActive={false} searchProducts={null} />
       <div className="border-t-4 border-dark-border">
-        <div className="flex overflow-hidden bg-dark-bg  pt-8">
+        <div className="flex justify-center overflow-hidden bg-dark-bg  pt-8">
           <div
             id="main-content"
-            className="h-full w-full  relative overflow-y-auto lg:mx-20 md:ml-4"
+            className="h-full w-full xl:w-3/4  relative overflow-y-auto lg:mx-20 md:ml-4"
           >
             <main>
               <div className="pt-6 px-4">
                 <div className="w-full grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
                   {/* M1 - PRODUCT INFORMATION */}
                   <div className="bg-dark-bg border-dark-border border-4 shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2  2xl:col-span-2">
-                    <div className="flex h-full items-center justify-between">
-                      <div className="flex-shrink-0 w-1/2 mr-6 flex-col justify-between flex h-full">
-                        <h1 className="text-2xl sm:text-3xl overflow-hidden leading-none font-bold text-white">
-                          {product?.name}
-                        </h1>
-                        <h3 className="text-base font-normal text-white">
+                    <h1 className="mb-4 text-2xl sm:text-3xl overflow-hidden leading-none font-bold text-white">
+                      {product?.name}
+                    </h1>
+                    <div className="flex  items-center justify-between">
+                      <div className="flex-shrink-0 w-1/2 mr-10 flex-col justify-end flex h-full">
+                        {/* <h3 className="text-base font-normal text-white">
                           {product?.lowestPrice}
-                        </h3>
+                        </h3> */}
                         <img
                           src={product?.image}
                           className="w-full mt-4 rounded-lg"
                         ></img>
                       </div>
-                      <div className="">
+                      <div className="w-full">
+                        <h2 className="mb-4 text-xl font-semibold text-white">
+                          About item
+                        </h2>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Manufacturer: " + product?.manufacturer}
+                          <strong className="text-white">Manufacturer: </strong>
+                          {product?.manufacturer}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory interface: " + product?.memoryInterface}
+                          <strong className="text-white">
+                            Memory interface:{" "}
+                          </strong>
+                          {product?.memoryInterface}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory: " + product?.memory}
+                          <strong className="text-white">Memory: </strong>
+                          {product?.memory}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Processor frequency: " +
-                            product?.processorFrequency}
+                          <strong className="text-white">
+                            Processor frequency:{" "}
+                          </strong>
+                          {product?.processorFrequency}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory frequency: " + product?.memoryFrequency}
+                          <strong className="text-white">
+                            Memory frequency:{" "}
+                          </strong>
+                          {product?.memoryFrequency}
                         </h3>
                         <h3 className=" mb-4 text-base font-normal text-gray-500">
-                          {"Guarantee: " + product?.guarantee}
+                          <strong className="text-white">Guarantee: </strong>
+                          {product?.guarantee}
                         </h3>
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           {product?.lowestPrice}
@@ -114,7 +128,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                           />
                         </div>
                       </div>
-                      <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                      {/* <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
                         12.5%
                         <svg
                           className="w-5 h-5"
@@ -128,16 +142,16 @@ const Product: FC<ProductProps> = ({ product }) => {
                             clipRule="evenodd"
                           ></path>
                         </svg>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   {/* M4 COPY - LIST OF ALL STORES */}
                   <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-6 ">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
-                        <h3 className="text-xl font-bold text-white mb-2">
+                        <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white mb-2">
                           All stores
-                        </h3>
+                        </h1>
                         <span className="text-base font-normal text-gray-500">
                           This is a list of stores with this item available
                         </span>
@@ -189,7 +203,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 23 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold text-dark-text">
-                                    $2300
+                                    235,000 RSD
                                   </td>
                                 </tr>
                                 <tr className="bg-dark-card">
@@ -202,7 +216,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 23 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold text-dark-text">
-                                    $670
+                                    222,000 RSD
                                   </td>
                                 </tr>
                                 <tr className="bg-dark-card text-dark-text ">
@@ -215,7 +229,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 18 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold ">
-                                    $234
+                                    222,000 RSD
                                   </td>
                                 </tr>
                                 <tr className="bg-dark-card text-dark-text">
@@ -228,7 +242,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 15 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold ">
-                                    $5000
+                                    222,000 RSD
                                   </td>
                                 </tr>
                                 <tr className="bg-dark-card text-dark-text">
@@ -241,7 +255,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 15 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold ">
-                                    $2300
+                                    222,000 RSD
                                   </td>
                                 </tr>
                                 <tr className="bg-dark-card text-dark-text">
@@ -254,7 +268,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 11 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold ">
-                                    $560
+                                    222,000 RSD
                                   </td>
                                 </tr>
                                 <tr className="bg-dark-card text-dark-text">
@@ -267,7 +281,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                     Apr 6 ,2021
                                   </td>
                                   <td className="p-4 whitespace-nowrap text-sm font-semibold ">
-                                    $1437
+                                    222,000 RSD
                                   </td>
                                 </tr>
                               </tbody>
@@ -278,7 +292,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                   {/* M3 - CHART */}
-                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-8">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
                         <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white">
@@ -306,6 +320,49 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                     <div id="main-chart">
                       <LineChart />
+                    </div>
+                  </div>
+
+                  {/* M3 - CHART HISTORY*/}
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-full flex-shrink-0">
+                        <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white">
+                          Historical low
+                        </h1>
+                        <h3 className="text-base font-normal text-gray-500">
+                          By price
+                        </h3>
+                        <div className="w-full mt-10">
+                          <div className="mb-4">
+                            <div className="flex justify-between">
+                              <h2>Historical low</h2> <b>135,000 RSD</b>
+                            </div>
+                            <div className="flex justify-between text-base font-normal text-gray-500">
+                              <h3>Monitor system</h3>
+                              <h3>Expired 3 months ago</h3>
+                            </div>
+                          </div>
+                          <div className="mb-4">
+                            <div className="flex justify-between ">
+                              <h2>2nd best</h2> <b>136,000 RSD</b>
+                            </div>
+                            <div className="flex justify-between text-base font-normal text-gray-500">
+                              <h3>Jakov</h3>
+                              <h3>Expired 3 months ago</h3>
+                            </div>
+                          </div>
+                          <div className="mb-4">
+                            <div className="flex justify-between">
+                              <h2>3rd best</h2> <b>137,000 RSD</b>
+                            </div>
+                            <div className="flex justify-between text-base font-normal text-gray-500">
+                              <h3>Gigatron</h3>
+                              <h3>Expired 3 months ago</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   {/* M2 - SIMILAR ITEMS / SAME MODEL */}
