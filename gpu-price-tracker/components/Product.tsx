@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import LineChart from "./LineChart";
 import Card from "./Card";
+import Navbar from "./Navbar";
 
 type ProductProps = {
   product: {
@@ -21,65 +22,83 @@ const mockCardData = {
   image: "https://img.gigatron.rs/img/products/medium/image615d8cb4c4e5d.png",
   manufacturer: "Palit",
   name: "PALIT GeForce RTX 3060 Ti Dual LHR 8GB GDDR6 256-bit NE6306T019P2-190AD",
-  lowestPrice: "79999.00 RSD",
+  lowestPrice: "79,999 RSD",
 };
 
 const Product: FC<ProductProps> = ({ product }) => {
   // console.log(product)
   return (
     <div>
-      <div>
-        <div className="flex overflow-hidden bg-slate-300 pt-16">
+      <Navbar isSearchActive={false} searchProducts={null} />
+      <div className="border-t-4 border-dark-border">
+        <div className="flex justify-center overflow-hidden bg-dark-bg  pt-8">
           <div
             id="main-content"
-            className="h-full w-full  relative overflow-y-auto lg:ml-64 md:ml-4"
+            className="h-full w-full xl:w-3/4  relative overflow-y-auto lg:mx-20 md:ml-4"
           >
             <main>
               <div className="pt-6 px-4">
-                <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+                <div className="w-full grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
                   {/* M1 - PRODUCT INFORMATION */}
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex-shrink-0 w-1/2">
-                        <span className="text-2xl sm:text-3xl overflow-auto leading-none font-bold text-gray-900">
-                          {product?.name}
-                        </span>
-                        <h3 className="text-base font-normal text-gray-500">
+                  <div className="bg-dark-bg border-dark-border border-4 shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2  2xl:col-span-2">
+                    <h1 className="mb-4 text-2xl sm:text-3xl overflow-hidden leading-none font-bold text-white">
+                      {product?.name}
+                    </h1>
+                    <div className="flex  items-center justify-between">
+                      <div className="flex-shrink-0 w-1/2 mr-10 flex-col justify-end flex h-full">
+                        {/* <h3 className="text-base font-normal text-white">
                           {product?.lowestPrice}
-                        </h3>
-                        <img src={product?.image} className="w-full p-8"></img>
+                        </h3> */}
+                        <img
+                          src={product?.image}
+                          className="w-full mt-4 rounded-lg"
+                        ></img>
                       </div>
-                      <div className="">
+                      <div className="w-full">
+                        <h2 className="mb-4 text-xl font-semibold text-white">
+                          About item
+                        </h2>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Manufacturer: " + product?.manufacturer}
+                          <strong className="text-white">Manufacturer: </strong>
+                          {product?.manufacturer}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory interface: " + product?.memoryInterface}
+                          <strong className="text-white">
+                            Memory interface:{" "}
+                          </strong>
+                          {product?.memoryInterface}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory: " + product?.memory}
+                          <strong className="text-white">Memory: </strong>
+                          {product?.memory}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Processor frequency: " +
-                            product?.processorFrequency}
+                          <strong className="text-white">
+                            Processor frequency:{" "}
+                          </strong>
+                          {product?.processorFrequency}
                         </h3>
                         <h3 className="text-base font-normal text-gray-500">
-                          {"Memory frequency: " + product?.memoryFrequency}
+                          <strong className="text-white">
+                            Memory frequency:{" "}
+                          </strong>
+                          {product?.memoryFrequency}
                         </h3>
                         <h3 className=" mb-4 text-base font-normal text-gray-500">
-                          {"Guarantee: " + product?.guarantee}
+                          <strong className="text-white">Guarantee: </strong>
+                          {product?.guarantee}
                         </h3>
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           {product?.lowestPrice}
                         </span>
 
-                        <div className="flex">
+                        <div className="flex mt-8">
                           <p className="text-gray-500 mr-2">
                             available at Gigatron
                           </p>
 
                           <img
-                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-dark-border"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
                           />
@@ -88,28 +107,28 @@ const Product: FC<ProductProps> = ({ product }) => {
                         <div className="flex -space-x-2 overflow-hidden ">
                           <p className="text-gray-500 mr-4">+ 4 other stores</p>
                           <img
-                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-dark-border"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
                           />
                           <img
-                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-dark-border"
                             src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
                           />
                           <img
-                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-dark-border"
                             src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
                             alt=""
                           />
                           <img
-                            className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                            className="inline-block h-8 w-8 rounded-full ring-2 ring-dark-border"
                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
                           />
                         </div>
                       </div>
-                      <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                      {/* <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
                         12.5%
                         <svg
                           className="w-5 h-5"
@@ -123,16 +142,16 @@ const Product: FC<ProductProps> = ({ product }) => {
                             clipRule="evenodd"
                           ></path>
                         </svg>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   {/* M4 COPY - LIST OF ALL STORES */}
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-6 ">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white mb-2">
                           All stores
-                        </h3>
+                        </h1>
                         <span className="text-base font-normal text-gray-500">
                           This is a list of stores with this item available
                         </span>
@@ -150,8 +169,8 @@ const Product: FC<ProductProps> = ({ product }) => {
                       <div className="overflow-x-auto rounded-lg">
                         <div className="align-middle inline-block min-w-full">
                           <div className="shadow overflow-hidden sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-200">
-                              <thead className="bg-gray-50">
+                            <table className="min-w-full divide-y divide-gray-600">
+                              <thead className="bg-dark-card">
                                 <tr>
                                   <th
                                     scope="col"
@@ -173,9 +192,9 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   </th>
                                 </tr>
                               </thead>
-                              <tbody className="bg-white">
+                              <tbody className="bg-dark-card">
                                 <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-dark-text">
                                     <span className="font-semibold">
                                       Gigatron
                                     </span>
@@ -183,12 +202,12 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 23 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $2300
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-dark-text">
+                                    235,000 RSD
                                   </td>
                                 </tr>
-                                <tr className="bg-gray-50">
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                <tr className="bg-dark-card">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-dark-text rounded-lg rounded-left">
                                     <span className="font-semibold">
                                       Monitor System
                                     </span>
@@ -196,12 +215,12 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 23 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $670
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-dark-text">
+                                    222,000 RSD
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                <tr className="bg-dark-card text-dark-text ">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal ">
                                     <span className="font-semibold">
                                       Store 3
                                     </span>
@@ -209,12 +228,12 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 18 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $234
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold ">
+                                    222,000 RSD
                                   </td>
                                 </tr>
-                                <tr className="bg-gray-50">
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                <tr className="bg-dark-card text-dark-text">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal  rounded-lg rounded-left">
                                     <span className="font-semibold">
                                       Store 4
                                     </span>
@@ -222,12 +241,12 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 15 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $5000
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold ">
+                                    222,000 RSD
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                <tr className="bg-dark-card text-dark-text">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal ">
                                     <span className="font-semibold">
                                       Store 5
                                     </span>
@@ -235,12 +254,12 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 15 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $2300
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold ">
+                                    222,000 RSD
                                   </td>
                                 </tr>
-                                <tr className="bg-gray-50">
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                <tr className="bg-dark-card text-dark-text">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal  rounded-lg rounded-left">
                                     <span className="font-semibold">
                                       Store 6
                                     </span>
@@ -248,12 +267,12 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 11 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $560
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold ">
+                                    222,000 RSD
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                <tr className="bg-dark-card text-dark-text">
+                                  <td className="p-4 whitespace-nowrap text-sm font-normal ">
                                     <span className="font-semibold">
                                       Store 7
                                     </span>
@@ -261,8 +280,8 @@ const Product: FC<ProductProps> = ({ product }) => {
                                   <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
                                     Apr 6 ,2021
                                   </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $1437
+                                  <td className="p-4 whitespace-nowrap text-sm font-semibold ">
+                                    222,000 RSD
                                   </td>
                                 </tr>
                               </tbody>
@@ -272,25 +291,13 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </div>
                     </div>
                   </div>
-                  {/* M2 - SIMILAR ITEMS / SAME MODEL */}
-                  <div className=" bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  col-span-8">
-                    <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                      Similar products
-                    </span>
-                    <div className="flex flex-row">
-                      <Card data={mockCardData} />
-                      <Card data={mockCardData} />
-                      <Card data={mockCardData} />
-                      <Card data={mockCardData} />
-                    </div>
-                  </div>
                   {/* M3 - CHART */}
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                          $45,385
-                        </span>
+                        <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white">
+                          Price changes over time
+                        </h1>
                         <h3 className="text-base font-normal text-gray-500">
                           Sales this week
                         </h3>
@@ -315,8 +322,64 @@ const Product: FC<ProductProps> = ({ product }) => {
                       <LineChart />
                     </div>
                   </div>
+
+                  {/* M3 - CHART HISTORY*/}
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-full flex-shrink-0">
+                        <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white">
+                          Historical low
+                        </h1>
+                        <h3 className="text-base font-normal text-gray-500">
+                          By price
+                        </h3>
+                        <div className="w-full mt-10">
+                          <div className="mb-4">
+                            <div className="flex justify-between">
+                              <h2>Historical low</h2> <b>135,000 RSD</b>
+                            </div>
+                            <div className="flex justify-between text-base font-normal text-gray-500">
+                              <h3>Monitor system</h3>
+                              <h3>Expired 3 months ago</h3>
+                            </div>
+                          </div>
+                          <div className="mb-4">
+                            <div className="flex justify-between ">
+                              <h2>2nd best</h2> <b>136,000 RSD</b>
+                            </div>
+                            <div className="flex justify-between text-base font-normal text-gray-500">
+                              <h3>Jakov</h3>
+                              <h3>Expired 3 months ago</h3>
+                            </div>
+                          </div>
+                          <div className="mb-4">
+                            <div className="flex justify-between">
+                              <h2>3rd best</h2> <b>137,000 RSD</b>
+                            </div>
+                            <div className="flex justify-between text-base font-normal text-gray-500">
+                              <h3>Gigatron</h3>
+                              <h3>Expired 3 months ago</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* M2 - SIMILAR ITEMS / SAME MODEL */}
+                  <div className=" bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8  col-span-8">
+                    <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
+                      Similar products
+                    </span>
+                    <div className="flex flex-row">
+                      <Card data={mockCardData} />
+                      <Card data={mockCardData} />
+                      <Card data={mockCardData} />
+                      <Card data={mockCardData} />
+                    </div>
+                  </div>
+
                   {/* M4 - LIST OF ALL STORES */}
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  {/* <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -460,14 +523,14 @@ const Product: FC<ProductProps> = ({ product }) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/* M5 - TRIPLE CARD */}
                 <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           2,340
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
@@ -491,10 +554,10 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           5,355
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
@@ -518,10 +581,10 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
+                        <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                           385
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
@@ -548,9 +611,9 @@ const Product: FC<ProductProps> = ({ product }) => {
                 </div>
                 <div className="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
                   {/* M6 - LATEST CUSTOMERS */}
-                  <div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold leading-none text-gray-900">
+                      <h3 className="text-xl font-bold leading-none text-white">
                         Latest Customers
                       </h3>
                       <a
@@ -561,7 +624,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                       </a>
                     </div>
                     <div className="flow-root">
-                      <ul role="list" className="divide-y divide-gray-200">
+                      <ul role="list" className="divide-y divide-dark-border">
                         <li className="py-3 sm:py-4">
                           <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0">
@@ -572,7 +635,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate">
+                              <p className="text-sm font-medium text-white truncate">
                                 Neil Sims
                               </p>
                               <p className="text-sm text-gray-500 truncate">
@@ -585,7 +648,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </a>
                               </p>
                             </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                            <div className="inline-flex items-center text-base font-semibold text-white">
                               $320
                             </div>
                           </div>
@@ -600,7 +663,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate">
+                              <p className="text-sm font-medium text-white truncate">
                                 Bonnie Green
                               </p>
                               <p className="text-sm text-gray-500 truncate">
@@ -613,7 +676,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </a>
                               </p>
                             </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                            <div className="inline-flex items-center text-base font-semibold text-white">
                               $3467
                             </div>
                           </div>
@@ -628,7 +691,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate">
+                              <p className="text-sm font-medium text-white truncate">
                                 Michael Gough
                               </p>
                               <p className="text-sm text-gray-500 truncate">
@@ -641,7 +704,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </a>
                               </p>
                             </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                            <div className="inline-flex items-center text-base font-semibold text-white0">
                               $67
                             </div>
                           </div>
@@ -656,7 +719,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate">
+                              <p className="text-sm font-medium text-white truncate">
                                 Thomes Lean
                               </p>
                               <p className="text-sm text-gray-500 truncate">
@@ -669,7 +732,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </a>
                               </p>
                             </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                            <div className="inline-flex items-center text-base font-semibold text-white">
                               $2367
                             </div>
                           </div>
@@ -684,7 +747,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate">
+                              <p className="text-sm font-medium text-whitetruncate">
                                 Lana Byrd
                               </p>
                               <p className="text-sm text-gray-500 truncate">
@@ -697,7 +760,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                                 </a>
                               </p>
                             </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                            <div className="inline-flex items-center text-base font-semibold text-white">
                               $367
                             </div>
                           </div>
@@ -706,29 +769,29 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                   {/* M7 - ACQUISITION OVERVIEW */}
-                  <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-                    <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
+                  <div className="bg-dark-bg border-dark-border border-4 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                    <h3 className="text-xl leading-none font-bold text-white mb-10">
                       Acquisition Overview
                     </h3>
                     <div className="block w-full overflow-x-auto">
                       <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                           <tr>
-                            <th className="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
+                            <th className="px-4 bg-dark-bg white align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                               Top Channels
                             </th>
-                            <th className="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
+                            <th className="px-4 bg-dark-bg white align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
                               Users
                             </th>
-                            <th className="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap min-w-140-px"></th>
+                            <th className="px-4 bbg-dark-bg white align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap min-w-140-px"></th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-dark-border">
                           <tr className="text-gray-500">
                             <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
                               Organic Search
                             </th>
-                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-white whitespace-nowrap p-4">
                               5,649
                             </td>
                             <td className="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
@@ -751,7 +814,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
                               Referral
                             </th>
-                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-white whitespace-nowrap p-4">
                               4,025
                             </td>
                             <td className="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
@@ -774,7 +837,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
                               Direct
                             </th>
-                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-white whitespace-nowrap p-4">
                               3,105
                             </td>
                             <td className="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
@@ -797,7 +860,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
                               Social
                             </th>
-                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-white whitespace-nowrap p-4">
                               1251
                             </td>
                             <td className="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
@@ -820,7 +883,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <th className="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
                               Other
                             </th>
-                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                            <td className="border-t-0 px-4 align-middle text-xs font-medium text-white whitespace-nowrap p-4">
                               734
                             </td>
                             <td className="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
@@ -843,7 +906,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <th className="border-t-0 align-middle text-sm font-normal whitespace-nowrap p-4 pb-0 text-left">
                               Email
                             </th>
-                            <td className="border-t-0 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4 pb-0">
+                            <td className="border-t-0 align-middle text-xs font-medium text-white whitespace-nowrap p-4 pb-0">
                               456
                             </td>
                             <td className="border-t-0 align-middle text-xs whitespace-nowrap p-4 pb-0">
@@ -870,7 +933,7 @@ const Product: FC<ProductProps> = ({ product }) => {
               </div>
             </main>
 
-            <footer className="bg-white md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4">
+            <footer className="bg-dark-bg border-4 border-dark-border  md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4">
               <ul className="flex items-center flex-wrap mb-6 md:mb-0">
                 <li>
                   <a

@@ -1,9 +1,11 @@
+let currencyFormatter = new Intl.NumberFormat('sr-RS', { //TODO: generalize to more currencies
+  style: 'currency',
+  currency: 'RSD',
+});
+
 export const addLowestPrice = (products: Array<Product>) => 
   products.map((product: Product) => {
-    let currencyFormatter = new Intl.NumberFormat('sr-RS', { //TODO: generalize to more currencies
-      style: 'currency',
-      currency: 'RSD',
-    });
+
     //TODO: find a cleaner way
     const lowestPrice = product.prices.sort(
       (a, b) => Number(a.price) - Number(b.price)
@@ -11,7 +13,8 @@ export const addLowestPrice = (products: Array<Product>) =>
 
     return {
       ...product,
-      lowestPrice: `${ currencyFormatter.format(lowestPrice.price)}`,
+      lowestPrice: `${lowestPrice.price}  ${lowestPrice.currency}`,
+      lowestPriceFormatted: `${currencyFormatter.format(lowestPrice.price)}`,
     };
   })
 ;
@@ -24,5 +27,6 @@ export const addLowestPriceSingle = (product: Product) => {
   return {
     ...product,
     lowestPrice: `${lowestPrice.price}  ${lowestPrice.currency}`,
+    lowestPriceFormatted: `${currencyFormatter.format(lowestPrice.price)}`,
   };
 };

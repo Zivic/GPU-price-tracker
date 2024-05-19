@@ -73,10 +73,10 @@ const BrowseProducts: React.FC<{}> = () => {
 
   return (
     <>
-      <Navbar searchProducts = {getProductsByFilter}/>
+      <Navbar isSearchActive={true} searchProducts = {getProductsByFilter}/>
       <div className="flex">
         <Sidebar filterProducts={getProductsByFilter} />
-        <div className="flex justify-center w-full px-10 bg-[#141414] border-t-2 border-[#242424] text-white ">
+        <div className="flex justify-center w-full px-10 bg-dark-bg border-t-2 border-dark-border text-white ">
           {/* <h1>Browse window</h1> */}
           <CardList cardData={products} sortProducts={sortProducts} />
         </div>
