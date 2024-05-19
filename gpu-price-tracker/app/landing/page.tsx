@@ -1,8 +1,13 @@
-import styles from "./page.module.css";
+import "./landing.scss";
 export default function Landing() {
   return (
-    <div className="">
-      <div className={styles.noiseOverlay}>
+    <section className="">
+      <div className="absolute flex w-full h-full z-10 justify-center items-center">
+        <div className=" mb-96">
+          <h1 className="font-kinetika">GPU PRICE TRACKER</h1>
+        </div>
+      </div>
+      <div className="noiseOverlay">
         <video
           className="mouse-md opacity-40"
           loop={true}
@@ -20,6 +25,6 @@ export default function Landing() {
           />
         </video>
       </div>
-    </div>
+    </section>
   );
 }
