@@ -12,6 +12,7 @@ export default function Home() {
         <Link href="/about">About</Link>
         <Link href="/main">Main</Link>
         <Link href="/browse">Browse</Link>
+        <Link href="/landing">Landing page</Link>
 
         <p>
           Get started by editing&nbsp;
