@@ -1,5 +1,20 @@
+"use client"
 import "./landing.scss";
+// import LocomotiveScroll from "locomotive-scroll";
+import { useEffect } from "react";
 export default function Landing() {
+
+  useEffect(() => {
+    async function getLocomotive() {
+      const Locomotive = (await import("locomotive-scroll")).default;
+      // const locomotiveScroll = new Locomotive.LocomotiveScroll();
+      const scroll = new Locomotive()
+    }
+
+    getLocomotive();
+  }, []);
+  // const locomotiveScroll = new LocomotiveScroll();
+  // if (!window) throw new Error("Window not defined");
   return (
     <section className="">
       <div className="absolute flex w-full h-full z-10 justify-center items-center">
@@ -24,6 +39,24 @@ export default function Landing() {
             type="video/mp4"
           />
         </video>
+      </div>
+      <div className=" h-screen flex">
+        <div className=" text-8xl font-kinetika font-extrabold m-32 w-full">
+          <h1> One stop design shop for your digital product 👋</h1>
+        </div>
+      </div>
+      <div>
+        <div className="text-sm font-kinetika leading-2 w-full">
+          <h2 data-scroll data-scroll-speed="0.1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </h2>
+          <p data-scroll data-scroll-speed="0.8">
+            😬
+          </p>
+        </div>
+        <div>
+          <div className=" w-48 h-48 bg-slate-500 rounded-lg"></div>
+        </div>
       </div>
     </section>
   );

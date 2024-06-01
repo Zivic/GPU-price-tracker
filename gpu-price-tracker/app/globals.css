@@ -1,3 +1,4 @@
+@import 'node_modules/locomotive-scroll/dist/locomotive-scroll';
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
