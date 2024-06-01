@@ -38,9 +38,9 @@ const Product: FC<ProductProps> = ({ product }) => {
           >
             <main>
               <div className="pt-6 px-4">
-                <div className="w-full grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
+                <div className="w-full grid grid-cols-1 xl:grid-cols-12 2xl:grid-cols-12 gap-4">
                   {/* M1 - PRODUCT INFORMATION */}
-                  <div className="bg-dark-bg border-dark-border border-4 shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2  2xl:col-span-2">
+                  <div className="bg-dark-bg border-dark-border border-4 shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-8  2xl:col-span-8">
                     <h1 className="mb-4 text-2xl sm:text-3xl overflow-hidden leading-none font-bold text-white">
                       {product?.name}
                     </h1>
@@ -146,7 +146,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                   {/* M4 COPY - LIST OF ALL STORES */}
-                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-6 ">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-4 ">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white mb-2">
@@ -292,7 +292,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                   {/* M3 - CHART */}
-                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-9">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
                         <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white">
@@ -324,7 +324,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                   </div>
 
                   {/* M3 - CHART HISTORY*/}
-                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-6">
+                  <div className="bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-3">
                     <div className="flex items-center justify-between mb-4">
                       <div className="w-full flex-shrink-0">
                         <h1 className="text-2xl sm:text-3xl leading-none font-bold text-white">
@@ -338,7 +338,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <div className="flex justify-between">
                               <h2>Historical low</h2> <b>135,000 RSD</b>
                             </div>
-                            <div className="flex justify-between text-base font-normal text-gray-500">
+                            <div className="flex justify-between text-sm font-normal text-gray-500">
                               <h3>Monitor system</h3>
                               <h3>Expired 3 months ago</h3>
                             </div>
@@ -347,7 +347,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <div className="flex justify-between ">
                               <h2>2nd best</h2> <b>136,000 RSD</b>
                             </div>
-                            <div className="flex justify-between text-base font-normal text-gray-500">
+                            <div className="flex justify-between text-sm font-normal text-gray-500">
                               <h3>Jakov</h3>
                               <h3>Expired 3 months ago</h3>
                             </div>
@@ -356,7 +356,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                             <div className="flex justify-between">
                               <h2>3rd best</h2> <b>137,000 RSD</b>
                             </div>
-                            <div className="flex justify-between text-base font-normal text-gray-500">
+                            <div className="flex justify-between text-sm font-normal text-gray-500">
                               <h3>Gigatron</h3>
                               <h3>Expired 3 months ago</h3>
                             </div>
@@ -366,7 +366,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                     </div>
                   </div>
                   {/* M2 - SIMILAR ITEMS / SAME MODEL */}
-                  <div className=" bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8  col-span-8">
+                  <div className=" bg-dark-bg border-4 border-dark-border shadow rounded-lg p-4 sm:p-6 xl:p-8  col-span-12">
                     <span className="text-2xl sm:text-3xl leading-none font-bold text-white">
                       Similar products
                     </span>
