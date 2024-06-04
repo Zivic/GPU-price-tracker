@@ -2,17 +2,105 @@
 import "./landing.scss";
 // import LocomotiveScroll from "locomotive-scroll";
 import { useLayoutEffect, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import LocomotiveScroll from "locomotive-scroll";
+
 export default function Landing() {
   const horizontalContainer = useRef(null);
   const verticalContainer = useRef(null);
   const sectionRef = useRef(null);
   const yo = useRef(null);
 
+  let scroller: HTMLElement | null = null;
+
+  const onScroll = () => {
+    ScrollTrigger.update();
+  };
+
   useEffect(() => {
+    scroller = document.documentElement;
+    // let locomotiveScroll: any = null;
+    gsap.registerPlugin(ScrollTrigger);
+
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
-    })();
+      const locomotiveScroll = new LocomotiveScroll({
+        scrollCallback: onScroll,
+      });
+      return locomotiveScroll
+    })().then((locomotiveScroll) => {
+              // tell ScrollTrigger to use these proxy methods for the ".smooth-scroll" element since Locomotive Scroll is hijacking things
+        ScrollTrigger.scrollerProxy(scroller, {
+          scrollTop(value) {
+            return arguments.length
+              ? locomotiveScroll.scrollTo(value, {
+                  duration: 0,
+                  disableLerp: true,
+                })
+              : locomotiveScroll.scroll.instance.scroll.y;
+          }, // we don't have to define a scrollLeft because we're only scrolling vertically.
+          getBoundingClientRect() {
+            return {
+              top: 0,
+              left: 0,
+              width: window.innerWidth,
+              height: window.innerHeight,
+            };
+          },
+          // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
+          pinType: scroller.style.transform ? "transform" : "fixed",
+        });
+
+        ScrollTrigger.defaults({
+          scroller: scroller,
+        });
+
+        const horizontalSections = gsap.utils.toArray("section.horizontal");
+
+        horizontalSections.forEach(function (sec, i) {
+          var thisPinWrap = sec.querySelector(".pin-wrap");
+          var thisAnimWrap = thisPinWrap.querySelector(".animation-wrap");
+
+          var getToValue = () =>
+            -(thisAnimWrap.scrollWidth - window.innerWidth);
+
+          gsap.fromTo(
+            thisAnimWrap,
+            {
+              x: () =>
+                thisAnimWrap.classList.contains("to-right") ? 0 : getToValue(),
+            },
+            {
+              x: () =>
+                thisAnimWrap.classList.contains("to-right") ? getToValue() : 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sec,
+                scroller: scroller,
+                start: "top top",
+                end: () =>
+                  "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
+                pin: thisPinWrap,
+                invalidateOnRefresh: true,
+                anticipatePin: 1,
+                scrub: true,
+                //markers: true
+              },
+            }
+          );
+        });
+
+        // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
+        ScrollTrigger.addEventListener("refresh", () =>
+          locomotiveScroll.update()
+        );
+
+        // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
+        ScrollTrigger.refresh();
+    });
+
+
   }, []);
 
   // const locomotiveScroll = new LocomotiveScroll();
