@@ -70,38 +70,7 @@ export default function Landing() {
         scroller: scroller,
       });
 
-      const horizontalSections = gsap.utils.toArray("section.horizontal");
-      // debugger;
-      horizontalSections.forEach(function (sec, i) {
-        var thisPinWrap = sec.querySelector(".pin-wrap");
-        var thisAnimWrap = thisPinWrap.querySelector(".animation-wrap");
 
-        var getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth);
-        // debugger;
-        gsap.fromTo(
-          thisAnimWrap,
-          {
-            x: () =>
-              thisAnimWrap.classList.contains("to-right") ? 0 : getToValue(),
-          },
-          {
-            x: () =>
-              thisAnimWrap.classList.contains("to-right") ? getToValue() : 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sec,
-              scroller: scroller,
-              start: "top top",
-              end: () => "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
-              pin: thisPinWrap,
-              invalidateOnRefresh: true,
-              anticipatePin: 1,
-              scrub: true,
-              markers: true
-            },
-          }
-        );
-      });
 
       // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
       ScrollTrigger.addEventListener("refresh", () =>
@@ -113,6 +82,39 @@ export default function Landing() {
       ScrollTrigger.refresh();
     });
   }, []);
+
+  const horizontalSections = gsap.utils.toArray("section.horizontal");
+  // debugger;
+  horizontalSections.forEach(function (sec, i) {
+    var thisPinWrap = sec.querySelector(".pin-wrap");
+    var thisAnimWrap = thisPinWrap.querySelector(".animation-wrap");
+
+    var getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth);
+    // debugger;
+    gsap.fromTo(
+      thisAnimWrap,
+      {
+        x: () =>
+          thisAnimWrap.classList.contains("to-right") ? 0 : getToValue(),
+      },
+      {
+        x: () =>
+          thisAnimWrap.classList.contains("to-right") ? getToValue() : 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sec,
+          scroller: scroller,
+          start: "top top",
+          end: () => "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
+          pin: thisPinWrap,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          scrub: true,
+          markers: true
+        },
+      }
+    );
+  });
 
   // const locomotiveScroll = new LocomotiveScroll();
   // if (!window) throw new Error("Window not defined");
