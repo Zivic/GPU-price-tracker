@@ -1,60 +1,50 @@
 "use client";
 import "./landing.scss";
 // import LocomotiveScroll from "locomotive-scroll";
-import { useLayoutEffect, useEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import LocomotiveScroll from "locomotive-scroll";
 
 export default function Landing() {
+  const [initialized, setInitialized] = useState(false)
   const horizontalContainer = useRef(null);
   const verticalContainer = useRef(null);
   const sectionRef = useRef(null);
   const yo = useRef(null);
   const scrollRef:any = useRef(null);
-  let scroller: HTMLElement | null = null;
+  let scroller: HTMLElement | null = useRef(null);
     gsap.registerPlugin(ScrollTrigger);
 
   const onScroll = ({ scroll, limit, velocity, direction, progress }) => {
     // debugger;
-    console.log(scroll, limit, velocity, direction, progress);
+    // console.log(scroll, limit, velocity, direction, progress);
     scrollRef.current = { scroll, limit, velocity, direction, progress };
     ScrollTrigger.update();
     // console.log(ScrollTrigger)
 
   };
-  
+  let locomotiveScroll  = useRef(null);
 
-  useLayoutEffect(() => {
-    scroller = document.querySelector("#scroller");
-    // let locomotiveScroll: any = null;
-
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll({
-        scrollCallback: onScroll,
-      });
-      return locomotiveScroll;
-    })().then((locomotiveScroll) => {
-      console.log(locomotiveScroll);
-      console.log(locomotiveScroll.lenisInstance.dimensions.height)
-      // debugger;
+  const initGSAP = () => {
+    if(initialized && scroller.current && locomotiveScroll.current )
+{
+  console.log("INIT GSAP RUNNING")
 
       // each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
-// locoScroll.on("scroll", ScrollTrigger.update);
+      // locoScroll.on("scroll", ScrollTrigger.update);
       // tell ScrollTrigger to use these proxy methods for the ".smooth-scroll" element since Locomotive Scroll is hijacking things
-      ScrollTrigger.scrollerProxy(scroller, {
-
-
+      ScrollTrigger.scrollerProxy(scroller.current, {
         scrollTop(value) {
           return arguments.length
-            ? locomotiveScroll.scrollTo(value, {
+            ? locomotiveScroll.current.scrollTo(value, {
                 duration: 0,
                 disableLerp: true,
               })
-            : locomotiveScroll.lenisInstance.dimensions.height
+            // : locomotiveScroll.current.lenisInstance.dimensions.height
             // :0
-            // : scrollRef.current.scroll
+            : (scrollRef?.current?.scroll | 0)
+
         }, // we don't have to define a scrollLeft because we're only scrolling vertically.
         getBoundingClientRect() {
           return {
@@ -65,11 +55,11 @@ export default function Landing() {
           };
         },
         // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
-        pinType: scroller.style.transform ? "transform" : "fixed",
+        pinType: scroller.current.style.transform ? "transform" : "fixed",
       });
 
       ScrollTrigger.defaults({
-        scroller: scroller,
+        scroller: scroller.current,
       });
 
 
@@ -77,48 +67,81 @@ export default function Landing() {
       // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
       ScrollTrigger.addEventListener("refresh", () =>
         // locomotiveScroll.update()
-        locomotiveScroll.resize()
+        locomotiveScroll.current.resize()
       );
 
       // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
       ScrollTrigger.refresh();
+    const horizontalSections = gsap.utils.toArray("section.horizontal");
+    // debugger;
+    horizontalSections.forEach(function (sec, i) {
+      var thisPinWrap = sec.querySelector(".pin-wrap");
+      var thisAnimWrap = thisPinWrap.querySelector(".animation-wrap");
+  
+      var getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth);
+      debugger;
+      gsap.fromTo(
+        thisAnimWrap,
+        {
+          x: () =>
+            thisAnimWrap.classList.contains("to-right") ? 0 : getToValue(),
+        },
+        {
+          x: () =>
+            thisAnimWrap.classList.contains("to-right") ? getToValue() : 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sec,
+            scroller: scroller.current,
+            start: "top top",
+            end: () => "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
+            pin: thisPinWrap,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+            scrub: true,
+            markers: true
+          },
+        }
+      );
     });
+  }
+
+  }
+  useLayoutEffect(() => {
+
+    console.log("WINDOW: ", window)
+    console.log("USEEFFECT")
+
+    scroller.current = document.querySelector("#scroller");
+    // let locomotiveScroll: any = null;
+
+    (async () => {
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+       locomotiveScroll.current = new LocomotiveScroll({
+        scrollCallback: onScroll,
+      });
+      console.log("LOCO:", locomotiveScroll.current)
+      // return locomotiveScroll.current;
+    })().then(()=> {
+      setInitialized(true);
+
+    })
+    
+    
   }, []);
 
-    if(typeof document !== 'undefined'){
-      const horizontalSections = gsap.utils.toArray("section.horizontal");
-      // debugger;
-      horizontalSections.forEach(function (sec, i) {
-        var thisPinWrap = sec.querySelector(".pin-wrap");
-        var thisAnimWrap = thisPinWrap.querySelector(".animation-wrap");
-    
-        var getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth);
-        debugger;
-        gsap.fromTo(
-          thisAnimWrap,
-          {
-            x: () =>
-              thisAnimWrap.classList.contains("to-right") ? 0 : getToValue(),
-          },
-          {
-            x: () =>
-              thisAnimWrap.classList.contains("to-right") ? getToValue() : 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sec,
-              scroller: scroller,
-              start: "top top",
-              end: () => "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
-              pin: thisPinWrap,
-              invalidateOnRefresh: true,
-              anticipatePin: 1,
-              scrub: true,
-              markers: true
-            },
-          }
-        );
-      });
-    }
+  useLayoutEffect(() => {
+    console.log("INITIALIZED", initialized, scroller.current,scrollRef.current,  locomotiveScroll.current)
+    // if(initialized && scroller && locomotiveScroll)
+
+    initGSAP();
+  },[initialized, scroller])
+
+    // if(typeof document !== 'undefined'){
+    //   // if(window){
+    //   initGSAP();
+     
+    // }
 
 
   // const locomotiveScroll = new LocomotiveScroll();
