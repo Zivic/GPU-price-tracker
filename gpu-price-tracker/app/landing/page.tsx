@@ -1,220 +1,116 @@
 "use client";
 import "./landing.scss";
 import { useLayoutEffect, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
-
+import useLocomotiveScroll from "@/hooks/useLocomotiveScroll";
 export default function Landing() {
-  const [initialized, setInitialized] = useState(false);
-  const scrollRef: any = useRef(null);
-  let scroller: HTMLElement | null = useRef(null);
-  gsap.registerPlugin(ScrollTrigger);
-
-  const onScroll = ({ scroll, limit, velocity, direction, progress }) => {
-    scrollRef.current = { scroll, limit, velocity, direction, progress };
-    ScrollTrigger.update();
-  };
-  let locomotiveScroll = useRef(null);
-
-  const initGSAP = () => {
-    if (initialized && scroller.current && locomotiveScroll.current) {
-      // each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
-      // tell ScrollTrigger to use these proxy methods for the ".smooth-scroll" element since Locomotive Scroll is hijacking things
-      ScrollTrigger.scrollerProxy(scroller.current, {
-        scrollTop(value) {
-          return arguments.length
-            ? locomotiveScroll.current.scrollTo(value, {
-                duration: 0,
-                disableLerp: true,
-              })
-            : scrollRef?.current?.scroll | 0;
-        }, // we don't have to define a scrollLeft because we're only scrolling vertically.
-        getBoundingClientRect() {
-          return {
-            top: 0,
-            left: 0,
-            width: window.innerWidth,
-            height: window.innerHeight,
-          };
-        },
-        // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
-        pinType: scroller.current.style.transform ? "transform" : "fixed",
-      });
-
-      ScrollTrigger.defaults({
-        scroller: scroller.current,
-      });
-
-      // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
-      ScrollTrigger.addEventListener("refresh", () =>
-        locomotiveScroll.current.resize()
-      );
-
-      // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
-      ScrollTrigger.refresh();
-
-      const horizontalSections = gsap.utils.toArray("section.horizontal");
-      horizontalSections.forEach(function (sec, i) {
-        var thisPinWrap = sec.querySelector(".pin-wrap");
-        var thisAnimWrap = thisPinWrap.querySelector(".animation-wrap");
-
-        var getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth);
-        gsap.fromTo(
-          thisAnimWrap,
-          {
-            x: () =>
-              thisAnimWrap.classList.contains("to-right") ? 0 : getToValue(),
-          },
-          {
-            x: () =>
-              thisAnimWrap.classList.contains("to-right") ? getToValue() : 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sec,
-              scroller: scroller.current,
-              start: "top top",
-              end: () => "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
-              pin: thisPinWrap,
-              invalidateOnRefresh: true,
-              anticipatePin: 1,
-              scrub: true,
-              markers: true,
-            },
-          }
-        );
-      });
-    }
-  };
-  useLayoutEffect(() => {
-    scroller.current = document.querySelector("#scroller");
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      locomotiveScroll.current = new LocomotiveScroll({
-        scrollCallback: onScroll,
-      });
-    })().then(() => {
-      setInitialized(true);
-    });
-  }, []);
-
-  useLayoutEffect(() => {
-    initGSAP();
-  }, [initialized, scroller]);
-
-
+  useLocomotiveScroll();
   return (
     <>
-      
-
       <div id="scroller">
-        <section className="blank">
-          <h1>ScrollTrigger and Locomotive-Scroll</h1>
-          <p>...</p>
-        </section>
-
-        
-        {/* <section >
-        <div>
-          <div className="absolute flex w-full h-full z-10 justify-center items-center">
-            <div className=" mb-96">
-              <h1 className="font-kinetika">GPU PRICE TRACKER</h1>
+        <section className="main">
+          <div>
+            <div className="absolute flex w-full h-full z-10 justify-center items-center">
+              <div className=" mb-96">
+                <h1 className="font-kinetika">GPU PRICE TRACKER</h1>
+              </div>
+            </div>
+            <div className="noiseOverlay">
+              <video
+                className="mouse-md opacity-40"
+                loop={true}
+                muted
+                autoPlay
+                playsInline
+                // poster={}
+                data-aos="zoom-in-down"
+              >
+                <source
+                  src={
+                    "https://res.cloudinary.com/dyudvhug1/video/upload/v1716148067/vlc-record-2024-05-18-15h48m58s-ROG_Strix_GeForce_RTX_2080_Ti_and_2080_Graphics_Cards_Victory_Redefined-_erj2nz.mp4"
+                  }
+                  type="video/mp4"
+                />
+              </video>
             </div>
           </div>
-          <div className="noiseOverlay">
-            <video
-              className="mouse-md opacity-40"
-              loop={true}
-              muted
-              autoPlay
-              playsInline
-              // poster={}
-              data-aos="zoom-in-down"
-            >
-              <source
-                src={
-                  "https://res.cloudinary.com/dyudvhug1/video/upload/v1716148067/vlc-record-2024-05-18-15h48m58s-ROG_Strix_GeForce_RTX_2080_Ti_and_2080_Graphics_Cards_Victory_Redefined-_erj2nz.mp4"
-                }
-                type="video/mp4"
-              />
-            </video>
-          </div>
-        </div>
 
-        <div data-scroll-section className=" h-screen flex">
-          <div className=" text-8xl font-kinetika font-extrabold m-32 w-full">
-            <h1> One stop design shop for your digital product 👋</h1>
+          <div data-scroll-section className=" h-screen flex">
+            <div className=" text-8xl font-kinetika font-extrabold m-32 w-full">
+              <h1> One stop design shop for your digital product 👋</h1>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className=" h-screen  text-sm font-kinetika m-32 leading-normal w-full">
-            <h2 data-scroll data-scroll-speed="0.4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </h2>
-            <p data-scroll data-scroll-speed="0.1">
-              😬
-            </p>
+          <div>
+            <div className=" h-screen  text-sm font-kinetika m-32 leading-normal w-full">
+              <h2 data-scroll data-scroll-speed="0.4">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </h2>
+              <p data-scroll data-scroll-speed="0.1">
+                😬
+              </p>
+            </div>
           </div>
-        </div>
         </section>
-        <section
-          className="horizontal h-screen flex "
-        >
+
+        <section className=" h-screen flex ">
           <div className="pin-wrap">
-          <div className="animation-wrap to-right flex m-32 w-full gap-20">
-            <div
-              data-scroll
-              data-scroll-speed="0.3"
-              data-scroll-direction="horizontal"
-              className=" w-48 h-48 bg-slate-600 rounded-lg"
-            ></div>
-            <div
-              data-scroll
-              data-scroll-speed="0.4"
-              data-scroll-direction="horizontal"
-              className=" w-48 h-48 bg-slate-700 rounded-lg"
-            ></div>
-            <div
-              data-scroll
-              data-scroll-speed="0.8"
-              data-scroll-direction="horizontal"
-              className=" w-48 h-48 bg-slate-800 rounded-lg"
-            ></div>
-            <div>
+            <div className="animation-wrap to-right flex m-32 w-full gap-20">
               <div
                 data-scroll
-                data-scroll-speed="0.1"
-                data-scroll-direction="horizontal"
-                className=" w-48 h-48 bg-slate-900 rounded-lg"
-              ></div>
-              <div
-                data-scroll
-                data-scroll-speed="0.1"
+                data-scroll-speed="0.3"
                 data-scroll-direction="horizontal"
                 className=" w-48 h-48 bg-slate-600 rounded-lg"
               ></div>
               <div
                 data-scroll
-                data-scroll-speed="0.1"
+                data-scroll-speed="0.4"
                 data-scroll-direction="horizontal"
                 className=" w-48 h-48 bg-slate-700 rounded-lg"
               ></div>
               <div
                 data-scroll
-                data-scroll-speed="0.1"
+                data-scroll-speed="0.8"
                 data-scroll-direction="horizontal"
                 className=" w-48 h-48 bg-slate-800 rounded-lg"
               ></div>
-              <div
-                data-scroll
-                data-scroll-speed="0.1"
-                data-scroll-direction="horizontal"
-                className=" w-48 h-48 bg-slate-900 rounded-lg"
-              ></div>
+              <div>
+                <div
+                  data-scroll
+                  data-scroll-speed="0.1"
+                  data-scroll-direction="horizontal"
+                  className=" w-48 h-48 bg-slate-900 rounded-lg"
+                ></div>
+                <div
+                  data-scroll
+                  data-scroll-speed="0.1"
+                  data-scroll-direction="horizontal"
+                  className=" w-48 h-48 bg-slate-600 rounded-lg"
+                ></div>
+                <div
+                  data-scroll
+                  data-scroll-speed="0.1"
+                  data-scroll-direction="horizontal"
+                  className=" w-48 h-48 bg-slate-700 rounded-lg"
+                ></div>
+                <div
+                  data-scroll
+                  data-scroll-speed="0.1"
+                  data-scroll-direction="horizontal"
+                  className=" w-48 h-48 bg-slate-800 rounded-lg"
+                ></div>
+                <div
+                  data-scroll
+                  data-scroll-speed="0.1"
+                  data-scroll-direction="horizontal"
+                  className=" w-48 h-48 bg-slate-900 rounded-lg"
+                ></div>
+              </div>
             </div>
           </div>
-          </div>
-      </section> */}
-
+        </section>
+        <section className="blank">
+          <h1>ScrollTrigger and Locomotive-Scroll</h1>
+          <p>...</p>
+        </section>
 
         <section className="horizontal">
           <div className="pin-wrap">
