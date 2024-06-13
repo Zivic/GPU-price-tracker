@@ -1,150 +1,138 @@
-section.main{
+section.main {
   background-color: #181a1b;
-  color:#FFFFFF;
-  .horizontal-container{
+  color: #ffffff;
+  .horizontal-container {
     width: 200vw;
   }
-    .noiseOverlay {
-        z-index: 2;
-        width: 100%;
-        height: 100%;
-        filter: contrast(120%) brightness(100%);
-        background: linear-gradient(191deg, rgba(28, 28, 30, 1), rgba(0, 0, 0, 0)),
-          linear-gradient(349deg, rgba(138, 6, 6, 1), rgba(0, 0, 0, 0)),
-          url("../../images/batthern.png");
-      }
+  .noiseOverlay {
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    filter: contrast(120%) brightness(100%);
+    background: linear-gradient(191deg, rgba(28, 28, 30, 1), rgba(0, 0, 0, 0)),
+      linear-gradient(349deg, rgba(138, 6, 6, 1), rgba(0, 0, 0, 0)),
+      url("../../images/batthern.png");
+  }
 
-      .font-kinetika{
-        font-family: "Kinetika";
-        font-size: 120px; 
-      }
+  .font-kinetika {
+    font-family: "Kinetika";
+    font-size: 120px;
+  }
 }
 
-
-html.has-smooth-scroll, html.has-smooth-scroll body {
+html.has-smooth-scroll,
+html.has-smooth-scroll body {
   overflow: hidden;
 }
 
-body { 
-  font-family: "Signika Negative", sans-serif; 
+body {
+  font-family: "Signika Negative", sans-serif;
   color: #181a1b;
   font-weight: 300;
-  
+
   margin: 0;
-  padding: 0; 
+  padding: 0;
 }
 
 #scroller {
-    overflow-y: hidden !important;
+  overflow-y: hidden !important;
 }
 
 .c-scrollbar {
   opacity: 1;
-  background: #DEDEDE;
+  background: #dedede;
 }
 
-section.horizontal{
-
+section.horizontal {
+  width: 100%;
+  height: 100%;
+  position: relative;
   h1 {
     margin: 0;
     padding: 50px 0 0 50px;
   }
-  
+
   p {
     margin: 0;
     padding: 50px 0 50px 50px;
   }
-  
-  section {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-  
-  
-  :nth-of-type(odd) {
-  background-color: #f0f0f0;
-  }
-  
-  :nth-of-type(even) {
-  background-color: #ffffff;
-  }
-  
-  
-  
-  
-  
-  
-  
-  
+
+  // :nth-of-type(odd) {
+  //   background-color: #f0f0f0;
+  // }
+
+  // :nth-of-type(even) {
+  //   background-color: #ffffff;
+  // }
+
+  overflow: hidden;
+
+  .horizontal-container {
     overflow: hidden;
-  
+    // width: 300vw;
+    // height: 200vh;
+  }
+
   .pin-wrap,
   .animation-wrap {
-      display: flex;
-      position: relative;
-      z-index: 1;  
-      height: 100vh;
+    display: flex;
+    position: relative;
+    z-index: 1;
+    height: 100vh;
   }
-  
-  
+
   .item {
-      position: relative;
-      padding: 150px 80px;
-      flex: 0 0 500px;
-      height: calc(100vh - 300px);
-      display: flex;
-      align-items: center;
-      line-height: 1.7;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      border-right: 1px solid rgba(0, 0, 0, 0.06);
-      background-color: transparent;
+    position: relative;
+    padding: 150px 80px;
+    flex: 0 0 500px;
+    height: calc(100vh - 300px);
+    display: flex;
+    align-items: center;
+    line-height: 1.7;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: transparent;
   }
-  
+
   .item:before {
-      position: absolute;
-      font-size: 100px;
-      opacity: .13;
-      font-weight: bold;    
-      z-index: -1;
-      -webkit-transform: translate(-30px, -50px);
-      transform: translate(-30px, -50px);
-      line-height: 1;
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.13;
+    font-weight: bold;
+    z-index: -1;
+    -webkit-transform: translate(-30px, -50px);
+    transform: translate(-30px, -50px);
+    line-height: 1;
   }
-  
-  
-  
-  
+
   .animation-wrap.to-right {
-      counter-reset: item;
-      float: left;
+    counter-reset: item;
+    float: left;
   }
-  
+
   .animation-wrap.to-left {
-      counter-reset: item 11;
-      float: right; 
+    counter-reset: item 11;
+    float: right;
   }
-  
+
   .animation-wrap.to-right .item:before {
-      counter-increment: item;
-      content: counter(item);
+    counter-increment: item;
+    content: counter(item);
   }
-  
+
   .animation-wrap.to-left .item:before {
-      counter-increment: item -1;
-      content: counter(item);
+    counter-increment: item -1;
+    content: counter(item);
   }
-  
-  
-  
-  .animation-wrap .item:nth-child(2n+2) {
-      align-items: flex-start;
+
+  .animation-wrap .item:nth-child(2n + 2) {
+    align-items: flex-start;
   }
-  
-  .animation-wrap .item:nth-child(4n+4) {
-      align-items: flex-end;
+
+  .animation-wrap .item:nth-child(4n + 4) {
+    align-items: flex-end;
   }
 }
