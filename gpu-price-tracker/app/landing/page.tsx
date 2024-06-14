@@ -1,7 +1,7 @@
 "use client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-
+import ScrollManufacturers from "@/components/ScrollManufacturers"
 import "./landing.scss";
 import { useEffect, useRef } from "react";
 import useLocomotiveScroll from "@/hooks/useLocomotiveScroll";
@@ -70,9 +70,13 @@ export default function Landing() {
             </div>
           </div>
 
-          <div data-scroll-section className=" h-screen flex">
+          <div data-scroll-section className=" h-screen flex flex-col">
             <div className=" text-8xl font-kinetika font-extrabold m-32 w-full">
               <h1> One stop design shop for your digital product 👋</h1>
+            </div>
+            <div>
+            <ScrollManufacturers/>
+
             </div>
           </div>
           <div>
