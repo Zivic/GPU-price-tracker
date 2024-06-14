@@ -11,19 +11,27 @@ export default function Landing() {
 
   useEffect(() => {
     gsap.fromTo(
-      ".gsap-stagger span",
+      ".gsap-stagger > *",
       {
-        opacity: 0.01,
-        y: -20,
+        opacity: 0.001,
+        y: 20,
       },
       {
         opacity: 1,
         y: 0,
         delay: 1,
         stagger: 0.8,
+        duration:1,
       }
     );
   }, []);
+
+  const handleInput = (e: KeyboardEvent) => {
+    if(e.key == "Enter"){
+      console.log(e.target.value);
+      //TODO: redirect to browse page with search value
+    }
+  }
 
   return (
     <>
@@ -32,11 +40,14 @@ export default function Landing() {
           <div>
             <div className="absolute flex w-full h-full z-10 justify-center items-center">
               <div
-                className="gsap-stagger font-kinetika mb-96 mt-40 flex flex-col items-center"
+                className="gsap-stagger font-kinetika font-bold mb-96 mt-80 flex flex-col items-center"
               >
                 <span>GPU</span>
                 <span>PRICE</span>
                 <span>TRACKER</span>
+                <div className=" text-3xl mt-20">
+                  <input onKeyUp={(e) => handleInput(e)} className="rounded-full py-4 px-8" placeholder="RTX 4090"></input>
+                </div>
               </div>
             </div>
             <div className="noiseOverlay">
