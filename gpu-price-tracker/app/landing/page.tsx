@@ -1,7 +1,7 @@
 "use client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import ScrollManufacturers from "@/components/ScrollManufacturers"
+import ScrollManufacturers from "@/components/ScrollManufacturers";
 import "./landing.scss";
 import { useEffect, useRef } from "react";
 import useLocomotiveScroll from "@/hooks/useLocomotiveScroll";
@@ -21,17 +21,25 @@ export default function Landing() {
         y: 0,
         delay: 1,
         stagger: 0.8,
-        duration:1,
+        duration: 1,
       }
     );
+
+    gsap.to(".gsap-banner > *", {
+      x: -500,
+      duration: 6,
+      repeat: -1,
+      yoyo: true,
+      yoyoEase: "sine.out",
+    });
   }, []);
 
   const handleInput = (e: KeyboardEvent) => {
-    if(e.key == "Enter"){
+    if (e.key == "Enter") {
       console.log(e.target.value);
       //TODO: redirect to browse page with search value
     }
-  }
+  };
 
   return (
     <>
@@ -39,14 +47,16 @@ export default function Landing() {
         <section className="main">
           <div>
             <div className="absolute flex w-full h-full z-10 justify-center items-center">
-              <div
-                className="gsap-stagger font-kinetika font-bold mb-96 mt-80 flex flex-col items-center"
-              >
+              <div className="gsap-stagger font-kinetika font-bold mb-96 mt-80 flex flex-col items-center">
                 <span>GPU</span>
                 <span>PRICE</span>
                 <span>TRACKER</span>
                 <div className=" text-3xl mt-20">
-                  <input onKeyUp={(e) => handleInput(e)} className="rounded-full py-4 px-8" placeholder="RTX 4090"></input>
+                  <input
+                    onKeyUp={(e) => handleInput(e)}
+                    className="rounded-full py-4 px-8"
+                    placeholder="RTX 4090"
+                  ></input>
                 </div>
               </div>
             </div>
@@ -75,8 +85,7 @@ export default function Landing() {
               <h1> One stop design shop for your digital product 👋</h1>
             </div>
             <div>
-            <ScrollManufacturers/>
-
+              <ScrollManufacturers />
             </div>
           </div>
           <div>

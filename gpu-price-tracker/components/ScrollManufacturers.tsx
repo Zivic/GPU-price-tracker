@@ -40,7 +40,7 @@ const ScrollManufacturers = () => {
   //   style={{backgroundImage: manufacturer.imageLink}}
   return (
     <>
-      <div className="flex flex-row">
+      <div className="gsap-banner flex flex-row">
         {manufacturers.map((manufacturer, i) => {
           return (
             <div
