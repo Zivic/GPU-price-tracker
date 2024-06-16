@@ -1,17 +1,63 @@
 "use client";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import ScrollManufacturers from "@/components/ScrollManufacturers";
 import "./landing.scss";
-import { useLayoutEffect, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import useLocomotiveScroll from "@/hooks/useLocomotiveScroll";
 export default function Landing() {
   useLocomotiveScroll();
+  gsap.registerPlugin(ScrollTrigger);
+
+  useEffect(() => {
+    gsap.fromTo(
+      ".gsap-stagger > *",
+      {
+        opacity: 0.001,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        delay: 1,
+        stagger: 0.8,
+        duration: 1,
+      }
+    );
+
+    gsap.to(".gsap-banner > *", {
+      x: -500,
+      duration: 6,
+      repeat: -1,
+      yoyo: true,
+      yoyoEase: "sine.out",
+    });
+  }, []);
+
+  const handleInput = (e: KeyboardEvent) => {
+    if (e.key == "Enter") {
+      console.log(e.target.value);
+      //TODO: redirect to browse page with search value
+    }
+  };
+
   return (
     <>
       <div id="scroller">
         <section className="main">
           <div>
             <div className="absolute flex w-full h-full z-10 justify-center items-center">
-              <div className=" mb-96">
-                <h1 className="font-kinetika">GPU PRICE TRACKER</h1>
+              <div className="gsap-stagger font-kinetika font-bold mb-96 mt-80 flex flex-col items-center">
+                <span>GPU</span>
+                <span>PRICE</span>
+                <span>TRACKER</span>
+                <div className=" text-3xl mt-20">
+                  <input
+                    onKeyUp={(e) => handleInput(e)}
+                    className="rounded-full py-4 px-8"
+                    placeholder="RTX 4090"
+                  ></input>
+                </div>
               </div>
             </div>
             <div className="noiseOverlay">
@@ -34,9 +80,12 @@ export default function Landing() {
             </div>
           </div>
 
-          <div data-scroll-section className=" h-screen flex">
+          <div data-scroll-section className=" h-screen flex flex-col">
             <div className=" text-8xl font-kinetika font-extrabold m-32 w-full">
               <h1> One stop design shop for your digital product 👋</h1>
+            </div>
+            <div>
+              <ScrollManufacturers />
             </div>
           </div>
           <div>
@@ -51,9 +100,9 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className=" h-screen flex ">
+        <section className="horizontal horizontal-container flex ">
           <div className="pin-wrap">
-            <div className="animation-wrap to-right flex m-32 w-full gap-20">
+            <div className="animation-wrap to-right flex justify-center items-center overflow-hidden  gap-20">
               <div
                 data-scroll
                 data-scroll-speed="0.3"
@@ -68,50 +117,144 @@ export default function Landing() {
               ></div>
               <div
                 data-scroll
-                data-scroll-speed="0.8"
+                data-scroll-speed="0.5"
                 data-scroll-direction="horizontal"
                 className=" w-48 h-48 bg-slate-800 rounded-lg"
               ></div>
-              <div>
-                <div
-                  data-scroll
-                  data-scroll-speed="0.1"
-                  data-scroll-direction="horizontal"
-                  className=" w-48 h-48 bg-slate-900 rounded-lg"
-                ></div>
-                <div
-                  data-scroll
-                  data-scroll-speed="0.1"
-                  data-scroll-direction="horizontal"
-                  className=" w-48 h-48 bg-slate-600 rounded-lg"
-                ></div>
-                <div
-                  data-scroll
-                  data-scroll-speed="0.1"
-                  data-scroll-direction="horizontal"
-                  className=" w-48 h-48 bg-slate-700 rounded-lg"
-                ></div>
-                <div
-                  data-scroll
-                  data-scroll-speed="0.1"
-                  data-scroll-direction="horizontal"
-                  className=" w-48 h-48 bg-slate-800 rounded-lg"
-                ></div>
-                <div
-                  data-scroll
-                  data-scroll-speed="0.1"
-                  data-scroll-direction="horizontal"
-                  className=" w-48 h-48 bg-slate-900 rounded-lg"
-                ></div>
-              </div>
+              <div
+                data-scroll
+                data-scroll-speed="0.6"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-900 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.5"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-600 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.4"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-700 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.3"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-800 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.2"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-900 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-600 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.05"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-700 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-800 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.15"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-900 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.2"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-600 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.25"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-700 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.3"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-800 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-900 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-600 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-700 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.5"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-800 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-900 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-600 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-700 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.5"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-800 rounded-lg"
+              ></div>
+              <div
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-direction="horizontal"
+                className=" w-48 h-48 bg-slate-900 rounded-lg"
+              ></div>
             </div>
           </div>
         </section>
-        <section className="blank">
+        {/* <section className="blank">
           <h1>ScrollTrigger and Locomotive-Scroll</h1>
           <p>...</p>
-        </section>
-
+        </section> */}
+        {/*
         <section className="horizontal">
           <div className="pin-wrap">
             <div className="animation-wrap to-right">
@@ -321,10 +464,10 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        <section className="blank">
-          <h1>...keep scrollin' scrollin' scrollin' scrollin'...</h1>
+        {/* <section className="blank">
+          <h1>...keep scrollin scrollin scrollin scrollin...</h1>
           <p>...</p>
         </section>
 
@@ -470,7 +613,7 @@ export default function Landing() {
         <section className="blank">
           <h1>...what do you think?</h1>
           <p>...</p>
-        </section>
+        </section> */}
       </div>
     </>
   );
